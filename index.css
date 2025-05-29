@@ -1,0 +1,226 @@
+
+/* General Reset and Fonts */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Helvetica Neue', sans-serif;
+
+}
+logo{
+  padding: 10px;
+  font-size: xx-small;
+}
+
+h1{
+  width: 20px;
+  padding: 30px;
+}
+
+body {
+  background-color: #121212;
+  color: white;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #1a1a1a;
+  flex-wrap: wrap;
+}
+
+.nav-left .nav-link {
+  margin-right: 20px;
+  cursor: pointer;
+  color: #ccc;
+}
+
+.nav-link.active {
+  color: #1db954;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search {
+  padding: 5px 10px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+}
+
+.login-btn {
+  background-color: #1db954;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  color: #fff;
+}
+
+/* Main Content */
+main {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+}
+
+.sidebar {
+  width: 200px;
+  background-color: #181818;
+  padding: 1rem;
+}
+
+.profile-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #666;
+  margin-bottom: 1rem;
+}
+
+.genres li {
+  list-style: none;
+  margin: 10px 0;
+  cursor: pointer;
+  color: #ccc;
+}
+
+.genres li.active {
+  color: #1db954;
+}
+
+.content {
+  flex: 1;
+  padding: 1.5rem;
+}
+
+.banner {
+  background: linear-gradient(to right, #1db954, #191919);
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.section h3 {
+  margin-bottom: 1rem;
+}
+
+.card-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.card {
+  width: 140px;
+  height: 140px;
+  background-color: #282828;
+  border-radius: 12px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 14px;
+  position: relative;
+}
+
+.card-info span {
+  color: #bbb;
+  font-size: 12px;
+}
+
+.play-btn {
+  background: #1db954;
+  border: none;
+  padding: 5px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #fff;
+  width: 30px;
+  height: 30px;
+  align-self: flex-end;
+}
+
+/* Login Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background-color: #222;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 300px;
+  color: white;
+  text-align: center;
+}
+
+.modal-content input {
+  display: block;
+  width: 100%;
+  margin: 1rem 0;
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+}
+
+.modal-content button {
+  background-color: #1db954;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+}
+
+.close {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar, .nav-right, .card-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
