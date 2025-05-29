@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Musicify</title>
+  <link rel="stylesheet" href="index.css"/>
+</head>
+<body>
+  <!-- Login Modal -->
+  <div id="loginModal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close" onclick="toggleModal()">&times;</span>
+      <h2>Login</h2>
+      <input type="text" placeholder="Username" />
+      <input type="password" placeholder="Password" />
+      <button onclick="alert('Logged In!')">Login</button>
+    </div>
+  </div>
+  
+
+  <div class="container">
+    <header>
+     
+      <nav class="navbar">
+        <div class="nav-left">
+          
+           <h1>audiora</h1>
+          <span class="nav-link active">Home</span>
+          <span class="nav-link">Browse</span>
+          <span class="nav-link">Radio</span>
+          <span class="nav-link">My Playlist</span>
+        </div>
+        <div class="nav-right">
+          <input type="text" placeholder="Search..." class="search"/>
+          <button class="login-btn" onclick="toggleModal()">Login</button>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <aside class="sidebar">
+        <div class="profile-img"></div>
+        <ul class="genres">
+          <li class="active">EDM</li>
+          <li>Pop</li>
+          <li>Indie</li>
+          <li>classic</li>
+          <li>jazz</li>
+
+        </ul>
+      </aside>
+
+      <section class="content">
+        <div class="banner">
+          <h2>ELECTRONIC HITS</h2>
+          <p>Hits</p>
+        </div>
+
+        <div class="section">
+          <h3>Trending Now</h3>
+          <div class="card-row">
+            <div class="card">
+              <div class="card-info">
+                Night Visions<br><span>Imagine Ofag</span>
+              </div>
+              <button class="play-btn">▶️</button>
+            </div>
+            <div class="card">
+              <div class="card-info">
+                <img src=""
+                Future Nostalgia<br><span>Dua Lipa</span>
+              </div>
+              <button class="play-btn">▶️</button>
+            </div>
+            <div class="card">
+              <div class="card-info">
+                After Hours<br><span>The Weekad</span>
+              </div>
+              <button class="play-btn">▶️</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3>Recently Played</h3>
+          <div class="card-row">
+            <div class="card">
+              <div class="card-info">STARBOY<br><span>The Weeknd</span></div>
+              <button class="play-btn">▶️</button>
+            </div>
+            <div class="card">
+              <div class="card-info">As It Was<br><span>Harry Styles</span></div>
+              <button class="play-btn">▶️</button>
+            </div>
+            <div class="card">
+              <div class="card-info">Golden Hour<br><span>Kacsy Musgraves</span></div>
+              <button class="play-btn">▶️</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    function toggleModal() {
+      document.getElementById('loginModal').classList.toggle('hidden');
+    }
+  </script>
+</body>
+</html>
