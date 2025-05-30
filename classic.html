@@ -1,0 +1,58 @@
+<!-- classic.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AUDIORA - Classical</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="audiora-logo.png" alt="AUDIORA Logo" />
+      <span>AUDIORA</span>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="playlist.html">Playlist</a>
+      <a href="jazz.html">jazz</a>
+      <a href="pop.html">Pop</a>
+      <a href="classic.html" class="active">Classical</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Classical Melodies</h1>
+    <div class="music-list">
+      <div class="music-card">
+        <img src="images/classic1.jpg" alt="Track" />
+        <h2>Für Elise</h2>
+        <p>Beethoven</p>
+        <button onclick="playTrack('Fur Elise', 'Beethoven')">▶ Play</button>
+      </div>
+      <div class="music-card">
+        <img src="images/classic2.jpg" alt="Track" />
+        <h2>The Four Seasons</h2>
+        <p>Vivaldi</p>
+        <button onclick="playTrack('The Four Seasons', 'Vivaldi')">▶ Play</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 AUDIORA. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function playTrack(title, artist) {
+      alert(`Playing: ${title} by ${artist}`);
+      const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      let recent = JSON.parse(localStorage.getItem('recentTracks')) || [];
+      recent.unshift({ title, artist, time });
+      if (recent.length > 10) recent.pop();
+      localStorage.setItem('recentTracks', JSON.stringify(recent));
+    }
+  </script>
+</body>
+</html>
