@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Favorites - Audiora</title>
+  <link rel="stylesheet" href="fav.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <img src="assets/logo.png" class="logo" alt="Audiora Logo" />
+      <div class="profile">
+        <img src="assets/profile.jpg" alt="User" class="profile-pic" />
+        <h3>User Name</h3>
+        <div class="genres">
+          <span>Chill</span>
+          <span>Lo-fi</span>
+        </div>
+      </div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="recentlyplay.html">Recently Played</a>
+        <a href="fav.html" class="active">Favorites</a>
+        <a href="playlist.html">My Playlists</a>
+        <a href="profile.html">Profile</a>
+        <a href="blend.html">Blend</a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <h2>Your Favorite Tracks</h2>
+      <div class="favorites-grid">
+        <div class="fav-card">
+          <img src="assets/song1.jpg" alt="Song" />
+          <h4>Dream Flow</h4>
+          <p>By Aurora</p>
+          <div class="actions">
+            <button onclick="playSong('music/dreamflow.mp3')">▶</button>
+            <button onclick="removeFav(this)">💔</button>
+            <button onclick="saveToPlaylist()">➕</button>
+          </div>
+        </div>
+        <!-- Add more .fav-card blocks as needed -->
+      </div>
+    </main>
+  </div>
+
+  <script>
+    function playSong(url) {
+      const audio = new Audio(url);
+      audio.play();
+    }
+
+    function removeFav(btn) {
+      btn.closest('.fav-card').remove();
+    }
+
+    function saveToPlaylist() {
+      alert("Saved to your playlist!");
+    }
+  </script>
+</body>
+</html>
