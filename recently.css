@@ -35,12 +35,8 @@ header {
   color: #00ff66;
 }
 
-nav a {
-  margin-left: 20px;
-  color: #ffffff;
-  text-decoration: none;
-  font-weight: 600;
-}
+
+
 
 nav a.active,
 nav a:hover {

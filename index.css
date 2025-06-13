@@ -7,14 +7,20 @@
   font-family: 'Helvetica Neue', sans-serif;
 
 }
-logo{
-  padding: 10px;
-  font-size: xx-small;
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  height: 60px;
+  margin-right: 5px;
 }
 
 h1{
   width: 20px;
-  padding: 30px;
+  padding: 20px;
 }
 
 body {
