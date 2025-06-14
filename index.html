@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Audiora</title>
   <link rel="stylesheet" href="index.css"/>
-   <link rel="icon" href="images/logo.png" type="image/x-icon">
+  <link rel="icon" href="images/logo.png" type="image/x-icon">
 </head>
 <body>
   <!-- Login Modal -->
@@ -15,101 +15,136 @@
       <h2>Login</h2>
       <input type="text" placeholder="Username" />
       <input type="password" placeholder="Password" />
-      <button onclick="alert('Logged In!')">Login</button>
+      <button onclick="login()">Login</button>
     </div>
   </div>
-  
 
-  <div class="container">
-    <header>
-     
-      <nav class="navbar">
-        <div class="nav-left">
-         <div class="logo">
-      <img src="images/logo.png" alt="AUDIORA Logo" />
-      <h1>AUDIORA</h1>
+  <!-- Header -->
+  <header>
+    <nav class="navbar">
+      <div class="nav-left">
+        <div class="logo">
+          <a href="index.html"><img src="images/logo.png" alt="AUDIORA Logo" /></a>
+          <h1>AUDIORA</h1>
+        </div>
+      </div>
+
+      <div class="nav-right">
+        <a href="index.html" class="active">Home</a>
+        <a href="playlist.html">Playlist</a>
+        <a href="fav.html">Favorites</a>
+        <a href="recently.html">Recently Played</a>
+        <button class="login-btn" onclick="toggleModal()">Login</button>
+      </div>
+
+      <div class="nav-center">
+    <div class="search-container">
+      <input type="text" placeholder="Search..." />
+      <button class="search-icon"></button>
     </div>
-    <nav>
-          <span class="nav-link active">Home</span>
-          <span class="nav-link">Browse</span>
-          <span class="nav-link">Radio</span>
-          <span class="nav-link">My Playlist</span>
-        </div>
-        <div class="nav-right">
-          <input type="text" placeholder="Search..." class="search"/>
-          <button class="login-btn" onclick="toggleModal()">Login</button>
-        </div>
-      </nav>
-    </header>
+  </div>
+  </nav>
 
-    <main>
-      <aside class="sidebar">
-        <div class="profile-img"></div>
-        <ul class="genres">
-          <li class="active">EDM</li>
-          <li>Pop</li>
-          <li>Indie</li>
-          <li>classic</li>
-          <li>jazz</li>
+  <!-- Main Flex Container -->
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="profile-img"></div>
+      <ul class="genres">
+        <li class="active">EDM</li>
+        <li>Pop</li>
+        <li>Indie</li>
+        <li>Classic</li>
+        <li>Jazz</li>
+      </ul>
+    </aside>
 
-        </ul>
-      </aside>
-
-      <section class="content">
-        <div class="banner">
-          <h2>ELECTRONIC HITS</h2>
-          <p>Hits</p>
-        </div>
-
-        <div class="section">
-          <h3>Trending Now</h3>
-          <div class="card-row">
-            <div class="card">
-              <div class="card-info">
-                Night Visions<br><span>Imagine Ofag</span>
-              </div>
-              <button class="play-btn">▶️</button>
-            </div>
-            <div class="card">
-              <div class="card-info">
-                <img src=""
-                Future Nostalgia<br><span>Dua Lipa</span>
-              </div>
-              <button class="play-btn">▶️</button>
-            </div>
-            <div class="card">
-              <div class="card-info">
-                After Hours<br><span>The Weekad</span>
-              </div>
-              <button class="play-btn">▶️</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="section">
-          <h3>Recently Played</h3>
-          <div class="card-row">
-            <div class="card">
-              <div class="card-info">STARBOY<br><span>The Weeknd</span></div>
-              <button class="play-btn">▶️</button>
-            </div>
-            <div class="card">
-              <div class="card-info">As It Was<br><span>Harry Styles</span></div>
-              <button class="play-btn">▶️</button>
-            </div>
-            <div class="card">
-              <div class="card-info">Golden Hour<br><span>Kacsy Musgraves</span></div>
-              <button class="play-btn">▶️</button>
-            </div>
-          </div>
+    <!-- Main Content -->
+    <main class="homepage-main">
+      <section class="recently-played">
+        <h2>Recently played</h2>
+        <div class="playlist-row">
+          <div class="playlist-card">Chill Hits</div>
+          <div class="playlist-card">Daily Mix 1</div>
+          <div class="playlist-card">Top 50 - USA</div>
+          <div class="playlist-card">Folk & Acoustic</div>
         </div>
       </section>
+
+      <section class="jump-back">
+        <h2>Jump back in</h2>
+        <div class="profile-row">
+          <div class="profile-icon"></div>
+          <div class="profile-icon"></div>
+          <div class="profile-icon"></div>
+          <div class="profile-icon"></div>
+          <div class="profile-icon"></div>
+        </div>
+      </section>
+
+      <section class="trending-now">
+        <h2>Trending Now</h2>
+        <div class="featured-list">
+          <div class="song">As It Was <span>- Harry Styles</span></div>
+          <div class="song">Golden Hour <span>- Kacey Musgraves</span></div>
+          <div class="song">Night Visions <span>- Imagine Dragons</span></div>
+          <div class="song">Future Nostalgia <span>- Dua Lipa</span></div>
+        </div>
+      </section>
+
+      <section class="featured">
+        <h2>Featured</h2>
+        <div class="featured-list">
+          <div class="song">Levitating <span>- Dua Lipa</span></div>
+          <div class="song">Save Your Tears <span>- The Weeknd</span></div>
+          <div class="song">Watermelon Sugar <span>- Harry Styles</span></div>
+          <div class="song">drivers license <span>- Olivia Rodrigo</span></div>
+        </div>
+      </section>
+
+      <footer class="player-bar">
+        <div class="now-playing">Blinding Lights - The Weeknd</div>
+        <div class="controls">
+          <button>⏮️</button>
+          <button>▶️</button>
+          <button>⏭️</button>
+        </div>
+      </footer>
     </main>
   </div>
 
+  <!-- Scripts -->
+  <script src="index.js"></script>
+
   <script>
+    document.getElementById('searchBtn').addEventListener('click', function () {
+      const query = document.getElementById('searchInput').value.trim();
+      if (query) {
+        alert(`Searching for: ${query}`);
+        // Replace alert with actual search logic if needed
+      }
+    });
+
+    let isLoggedIn = false;
+
     function toggleModal() {
-      document.getElementById('loginModal').classList.toggle('hidden');
+      const modal = document.getElementById('loginModal');
+      modal.classList.toggle('hidden');
+    }
+
+    function login() {
+      isLoggedIn = true;
+      toggleModal();
+      alert('Logged In!');
+    }
+
+    function tryPlaySong() {
+      if (!isLoggedIn) {
+        toggleModal();
+      } else {
+        alert("Playing song...");
+        // add your actual music playing code here
+      }
     }
   </script>
 </body>

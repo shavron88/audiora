@@ -1,13 +1,17 @@
-
-/* General Reset and Fonts */
+/* ===== General Reset and Font ===== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Helvetica Neue', sans-serif;
-
 }
 
+body {
+  background-color: #121212;
+  color: white;
+}
+
+/* ===== Logo ===== */
 .logo {
   display: flex;
   align-items: center;
@@ -18,53 +22,54 @@
   margin-right: 5px;
 }
 
-h1{
-  width: 20px;
-  padding: 20px;
+h1 {
+  font-size: 24px;
+  margin: 0;
+  padding-left: 10px;
 }
 
-body {
-  background-color: #121212;
-  color: white;
-}
-
-.container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-/* Navbar */
+/* ===== Navbar ===== */
 .navbar {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
   background-color: #1a1a1a;
-  flex-wrap: wrap;
 }
 
-.nav-left .nav-link {
-  margin-right: 20px;
-  cursor: pointer;
-  color: #ccc;
-}
-
-.nav-link.active {
-  color: #1db954;
-}
-
+.nav-left,
+.nav-center,
 .nav-right {
   display: flex;
   align-items: center;
+}
+
+.nav-left {
+  flex: 1;
   gap: 10px;
 }
 
-.search {
-  padding: 5px 10px;
-  border-radius: 20px;
-  border: none;
-  outline: none;
+.nav-center {
+  flex: 1;
+  justify-content: center;
+}
+
+.nav-right {
+  flex: 1;
+  justify-content: flex-end;
+  gap: 20px;
+}
+
+.nav-right a {
+  color: #ccc;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.nav-right a.active,
+.nav-right a:hover {
+  color: #1db954;
 }
 
 .login-btn {
@@ -76,17 +81,60 @@ body {
   color: #fff;
 }
 
-/* Main Content */
-main {
+/* ===== Search ===== */
+.search-container {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+.search-container input {
+  width: 100%;
+  padding: 10px 50px 10px 20px;
+  border-radius: 25px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  background-color: #79d89b;
+  color: black;
+}
+
+.search-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-image: url('images/mg.png');
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: transparent;
+  border: none;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
+/* ===== Layout ===== */
+.container {
   display: flex;
-  flex: 1;
-  flex-wrap: wrap;
+  flex-direction: row;
+  height: calc(100vh - 80px); /* adjust if header height changes */
+  overflow: hidden;
 }
 
 .sidebar {
   width: 200px;
-  background-color: #181818;
-  padding: 1rem;
+  min-width: 200px;
+  background-color: #111;
+  color: #fff;
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  position: sticky;
+  top: 0;
 }
 
 .profile-img {
@@ -97,70 +145,136 @@ main {
   margin-bottom: 1rem;
 }
 
-.genres li {
-  list-style: none;
-  margin: 10px 0;
-  cursor: pointer;
-  color: #ccc;
-}
-
-.genres li.active {
-  color: #1db954;
-}
-
-.content {
+/* ===== Main Section ===== */
+.homepage-main {
   flex: 1;
-  padding: 1.5rem;
+  padding: 2rem;
+  overflow-y: auto;
+  background-color: #121212;
 }
 
-.banner {
-  background: linear-gradient(to right, #1db954, #191919);
-  border-radius: 12px;
-  padding: 2rem;
+.homepage-main h2 {
+  font-size: 20px;
+  margin-bottom: 1rem;
+  color: #ffffff;
+}
+
+section {
+  margin-bottom: 3rem;
+}
+
+/* ===== Cards & Playlists ===== */
+.playlist-row {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
   margin-bottom: 2rem;
 }
 
-.section h3 {
-  margin-bottom: 1rem;
-}
-
-.card-row {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.card {
+.playlist-card {
   width: 140px;
   height: 140px;
   background-color: #282828;
   border-radius: 12px;
-  padding: 1rem;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  font-size: 14px;
-  position: relative;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
 
-.card-info span {
-  color: #bbb;
-  font-size: 12px;
+.playlist-card:hover {
+  background-color: #1db954;
+  color: black;
 }
 
-.play-btn {
-  background: #1db954;
-  border: none;
-  padding: 5px;
+/* ===== Jump Back In ===== */
+.profile-row {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.profile-icon {
+  width: 100px;
+  height: 100px;
+  background-color: #333;
   border-radius: 50%;
   cursor: pointer;
-  color: #fff;
-  width: 30px;
-  height: 30px;
-  align-self: flex-end;
+  transition: transform 0.3s ease;
 }
 
-/* Login Modal */
+.profile-icon:hover {
+  transform: scale(1.1);
+}
+
+/* ===== Songs ===== */
+.featured-list {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.song {
+  width: 140px;
+  height: 140px;
+  background-color: #282828;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: 600;
+  transition: background 0.3s ease;
+  padding: 1rem;
+}
+
+.song span {
+  color: #aaa;
+  font-size: 12px;
+  margin-top: 0.4rem;
+}
+
+.song:hover {
+  background-color: #1db954;
+  color: black;
+}
+
+.song:hover span {
+  color: #000;
+}
+
+/* ===== Player Bar ===== */
+.player-bar {
+  background-color: #181818;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #333;
+  position: sticky;
+  bottom: 0;
+}
+
+.controls button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  margin: 0 8px;
+  color: white;
+  cursor: pointer;
+}
+
+.controls button:hover {
+  color: #1db954;
+}
+
+/* ===== Modal ===== */
 .modal {
   position: fixed;
   top: 0;
@@ -185,6 +299,7 @@ main {
   width: 300px;
   color: white;
   text-align: center;
+  position: relative;
 }
 
 .modal-content input {
@@ -213,20 +328,23 @@ main {
   font-size: 1.5rem;
 }
 
-/* Responsive Design */
+/* ===== Responsive Design ===== */
 @media (max-width: 768px) {
-  .navbar, .nav-right, .card-row {
+  .navbar,
+  .nav-right {
     flex-direction: column;
     align-items: flex-start;
   }
 
-  .sidebar {
-    display: none;
+  .search-container {
+    width: 100%;
+    margin-top: 10px;
   }
 
-  .card {
+  .nav-center {
     width: 100%;
-    max-width: 300px;
+    margin-top: 10px;
+    justify-content: center;
   }
 }
 
