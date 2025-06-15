@@ -20,30 +20,29 @@
   </div>
 
   <!-- Header -->
-  <header>
-    <nav class="navbar">
-      <div class="nav-left">
-        <div class="logo">
-          <a href="index.html"><img src="images/logo.png" alt="AUDIORA Logo" /></a>
-          <h1>AUDIORA</h1>
-        </div>
-      </div>
+  <nav class="navbar">
+  <div class="nav-left">
+    <div class="logo">
+      <a href="index.html"><img src="images/logo.png" alt="AUDIORA Logo" /></a>
+      <h1>AUDIORA</h1>
+    </div>
+  </div>
 
-      <div class="nav-right">
-        <a href="index.html" class="active">Home</a>
-        <a href="playlist.html">Playlist</a>
-        <a href="fav.html">Favorites</a>
-        <a href="recently.html">Recently Played</a>
-        <button class="login-btn" onclick="toggleModal()">Login</button>
-      </div>
-
-      <div class="nav-center">
+  <div class="nav-center">
     <div class="search-container">
       <input type="text" placeholder="Search..." />
       <button class="search-icon"></button>
     </div>
   </div>
-  </nav>
+
+  <div class="nav-right">
+    <a href="index.html" class="active">Home</a>
+    <a href="playlist.html">Playlist</a>
+    <a href="fav.html">Favorites</a>
+    <a href="recently.html">Recently Played</a>
+    <button class="login-btn" onclick="toggleModal()">Login</button>
+  </div>
+</nav>
 
   <!-- Main Flex Container -->
   <div class="container">
@@ -62,12 +61,13 @@
     <!-- Main Content -->
     <main class="homepage-main">
       <section class="recently-played">
-        <h2>Recently played</h2>
+        <h2>Recently played Artists</h2>
         <div class="playlist-row">
-          <div class="playlist-card">Chill Hits</div>
-          <div class="playlist-card">Daily Mix 1</div>
-          <div class="playlist-card">Top 50 - USA</div>
-          <div class="playlist-card">Folk & Acoustic</div>
+          <div class="playlist-card">Chase Atlantic</div>
+          <div class="playlist-card">keshi</div>
+          <div class="playlist-card">HAVI</div>
+          <div class="playlist-card">eaJ</div>
+          <div class="playlist-card">brb.</div>
         </div>
       </section>
 
@@ -102,16 +102,58 @@
         </div>
       </section>
 
-      <footer class="player-bar">
-        <div class="now-playing">Blinding Lights - The Weeknd</div>
-        <div class="controls">
-          <button>⏮️</button>
-          <button>▶️</button>
-          <button>⏭️</button>
+      <section class="new-releases">
+        <h2>New Releases</h2>
+        <div class="featured-list">
+          <div class="song">Montero <span>- Lil Nas X</span></div>
+          <div class="song">Happier Than Ever <span>- Billie Eilish</span></div>
+          <div class="song">Justice <span>- Justin Bieber</span></div>
+          <div class="song">Evermore <span>- Taylor Swift</span></div>
         </div>
-      </footer>
+      </section>
+
+      <section class="top-charts">
+        <h2>Top Charts</h2>
+        <div class="featured-list">
+          <div class="song">Peaches <span>- Justin Bieber</span></div>
+          <div class="song">Kiss Me More <span>- Doja Cat</span></div>
+          <div class="song">MONTERO (Call Me By Your Name) <span>- Lil Nas X</span></div>
+          <div class="song">Stay <span>- The Kid LAROI & Justin Bieber</span></div>
+        </div>
+      </section>
     </main>
+
+  <!-- Player Bar -->
+  <div class="player-bar">
+  <div class="now-playing-info">
+    <img id="albumArt" src="images/album-art.jpg" alt="Album Art" class="album-art" />
+    <div class="song-details">
+      <div id="songTitle" class="song-title">Blinding Lights</div>
+      <div id="songArtist" class="artist-name">The Weeknd</div>
+    </div>
   </div>
+
+  <div class="controls">
+    <button onclick="prevSong()">⏮️</button>
+    <button onclick="togglePlay()" id="playPauseBtn">▶️</button>
+    <button onclick="nextSong()">⏭️</button>
+  </div>
+
+  <input type="range" min="0" max="100" value="50" class="volume-slider">
+</div>
+
+<!-- YouTube -->
+ <div class="youtube-player">
+  <iframe
+    id="ytplayer"
+    type="text/html"
+    width="0"
+    height="0"
+    src="https://www.youtube.com/embed/4NRXx6U8ABQ?autoplay=1&controls=0"
+    frameborder="0"
+    allow="autoplay"
+  ></iframe>
+</div>
 
   <!-- Scripts -->
   <script src="index.js"></script>
