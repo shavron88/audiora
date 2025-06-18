@@ -1,0 +1,102 @@
+<!-- blend.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Blend - Audiora</title>
+  <link rel="stylesheet" href="blend.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <img src="audioralogo.png" class="logo" alt="Audiora Logo" />
+      <div class="profile">
+
+ <div class="profile-info">
+    <img src="assets/user.png" alt="User" class="profile-pic" id="profileImage" />
+    <h2 id="displayName">Welcome, User</h2>
+
+        <img src="assets/profile.jpg" alt="User" class="profile-pic" />
+        <h3>User Name</h3>
+        <div class="genres">
+          <span>Jazz</span>
+          <span>EDM</span>
+        </div>
+      </div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="recentlyplay.html">Recently Played</a>
+        <a href="fav.html">Favorites</a>
+        <a href="playlist.html">My Playlists</a>
+        <a href="profile.html">Profile</a>
+        <a href="blend.html" class="active">Blend</a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <h2>Blend with a Friend</h2>
+      <p>Share your aura! Invite a friend to sync your music vibes.</p>
+
+      <div class="blend-actions">
+        <button onclick="generateCode()">Generate Invite Code</button>
+        <input type="text" id="friendCode" placeholder="Enter friend’s code" />
+        <button onclick="connectBlend()">Connect</button>
+      </div>
+
+      <div class="blend-feed" id="blendFeed">
+        <!-- Shared feed will appear here -->
+      </div>
+    </main>
+  </div>
+
+  <script>
+
+
+  // Load display name and profile picture
+  const userName = localStorage.getItem("displayName") || "User";
+  const userImg = localStorage.getItem("profileImage");
+
+  // Update name if element exists
+  const nameElement = document.getElementById("displayName");
+  if (nameElement) {
+    nameElement.innerText = `Welcome, ${userName}`;
+  }
+
+  // Update profile image if exists
+  const imgElement = document.getElementById("profileImage");
+  if (imgElement && userImg) {
+    imgElement.src = userImg;
+  }
+
+    function generateCode() {
+      const code = Math.random().toString(36).substring(2, 8).toUpperCase();
+      alert("Your invite code: " + code);
+    }
+
+    function connectBlend() {
+      const code = document.getElementById("friendCode").value;
+      if (code.trim() === "") {
+        alert("Please enter a valid code.");
+        return;
+      }
+
+      document.getElementById("blendFeed").innerHTML = `
+        <h3>🎧 Connected to Friend!</h3>
+        <div class="feed">
+          <div class="feed-item">
+            <strong>You</strong> liked: <em>Midnight Escape</em>
+          </div>
+          <div class="feed-item">
+            <strong>Friend</strong> added: <em>Chill Beats Vol. 2</em> to their playlist
+          </div>
+          <div class="feed-item">
+            <strong>You</strong> played: <em>Moonlight Drive</em>
+          </div>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>

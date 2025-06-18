@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Favorites - Audiora</title>
+  <link rel="stylesheet" href="fav.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <img src="audioralogo.png" class="logo" alt="Audiora Logo" />
+      <div class="profile">
+
+ <div class="profile-info">
+    <img src="assets/user.png" alt="User" class="profile-pic" id="profileImage" />
+    <h2 id="displayName">Welcome, User</h2>
+
+        <div class="genres">
+          <span>Chill</span>
+          <span>Lo-fi</span>
+        </div>
+      </div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="recentlyplay.html">Recently Played</a>
+        <a href="fav.html" class="active">Favorites</a>
+        <a href="playlist.html">My Playlists</a>
+        <a href="profile.html">Profile</a>
+        <a href="blend.html">Blend</a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <h2>Your Favorite Tracks</h2>
+      <div class="favorites-grid">
+        <div class="fav-card">
+          <img src="assets/song1.jpg" alt="Song" />
+          <h4>Dream Flow</h4>
+          <p>By Aurora</p>
+          <div class="actions">
+            <button onclick="playSong('song.mp3')">▶</button>
+            <button onclick="removeFav(this)">💔</button>
+            <button onclick="saveToPlaylist()">➕</button>
+          </div>
+        </div>
+        <!-- Add more .fav-card blocks as needed -->
+      </div>
+    </main>
+  </div>
+
+  <script>
+    function playSong(songmp3) {
+      const audio = new Audio(example.mp3);
+      audio.play();
+    }
+
+    function removeFav(btn) {
+      btn.closest('.fav-card').remove();
+    }
+
+    function saveToPlaylist() {
+      alert("Saved to your playlist!");
+    }
+
+ // Load display name and profile picture
+  const userName = localStorage.getItem("displayName") || "User";
+  const userImg = localStorage.getItem("profileImage");
+
+  // Update name if element exists
+  const nameElement = document.getElementById("displayName");
+  if (nameElement) {
+    nameElement.innerText = `Welcome, ${userName}`;
+  }
+
+  // Update profile image if exists
+  const imgElement = document.getElementById("profileImage");
+  if (imgElement && userImg) {
+    imgElement.src = userImg;
+  }
+
+  </script>
+</body>
+</html>

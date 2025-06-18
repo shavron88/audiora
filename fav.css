@@ -1,0 +1,115 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(160deg, #021f1f, #0c3e3e);
+  color: #fff;
+}
+
+.container {
+  display: flex;
+}
+
+.sidebar {
+  width: 260px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 20px;
+  height: 100vh;
+}
+
+.logo {
+  width: 130px;
+  margin-bottom: 20px;
+}
+
+.profile {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.profile-pic {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.genres span {
+  background: #00c6a7;
+  color: #000;
+  padding: 4px 10px;
+  border-radius: 12px;
+  margin: 2px;
+  display: inline-block;
+  font-size: 0.8rem;
+}
+
+nav a {
+  display: block;
+  color: #ddd;
+  text-decoration: none;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+nav a.active,
+nav a:hover {
+   background-color: #00c6a733 ;
+  
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 40px;
+}
+
+h2 {
+  margin-bottom: 25px;
+}
+
+.favorites-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.fav-card {
+  background : rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 15px;
+  width: 180px;
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.fav-card:hover {
+  transform: scale(1.05);
+}
+
+.fav-card img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.fav-card h4 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.fav-card p {
+  font-size: 0.85rem;
+  color: #ccc;
+}
+
+.actions {
+  margin-top: 10px;
+}
+
+.actions button {
+  background: none;
+  border: none;
+  color: #00c6a7;
+  font-size: 1.2rem;
+  margin: 0 5px;
+  cursor: pointer;
+}
