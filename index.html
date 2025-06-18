@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Home - Audiora</title>
+  
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+  <div class="app">
+    <!-- Sidebar -->
+
+<aside class="sidebar">
+  <div class="profile-info">
+    <img src="assets/user.png" alt="User" class="profile-pic" id="profileImage" />
+    <h2 id="displayName">Welcome, User</h2>
+  
+        <div class="genres" id="userGenres"></div>
+      </div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="recentlyplay.html">Recently Played</a>
+        <a href="fav.html">Favorites</a>
+        <a href="playlist.html">My Playlists</a>
+        <a href="profile.html">Profile</a>
+        <a href="blend.html">Blend</a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <h2>Recommended For You</h2>
+      <div class="songs">
+        <div class="song-card" onclick="playSong('music/sample.mp3')">
+          <img src="assets/song-cover.jpg" alt="Song" />
+          <h4>Sample Song</h4>
+          <button onclick="toggleLike(event)">❤️</button>
+          <button onclick="saveToPlaylist(event)">➕</button>
+        </div>
+      </div>
+
+      
+
+      <!-- Audio Player -->
+      <div class="player">
+        <audio id="audioPlayer" controls></audio>
+        <button onclick="toggleLoop()">🔁</button>
+        <div id="soundbar"></div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Load genres from localStorage
+    const genres = JSON.parse(localStorage.getItem("genres") || "[]");
+    const container = document.getElementById("userGenres");
+    genres.forEach(g => {
+      const span = document.createElement("span");
+      span.textContent = g;
+      container.appendChild(span);
+    });
+
+    function playSong(url) {
+      const audio = document.getElementById("audioPlayer");
+      audio.src = url;
+      audio.play();
+    }
+
+    function toggleLike(e) {
+      e.stopPropagation();
+      e.target.textContent = e.target.textContent === "❤️" ? "💔" : "❤️";
+    }
+
+    function saveToPlaylist(e) {
+      e.stopPropagation();
+      alert("Saved to playlist!");
+    }
+
+    function toggleLoop() {
+      const audio = document.getElementById("audioPlayer");
+      audio.loop = !audio.loop;
+      alert("Loop " + (audio.loop ? "enabled" : "disabled"));
+
+    }
+
+    
+  // Load display name and profile picture
+  const userName = localStorage.getItem("displayName") || "User";
+  const userImg = localStorage.getItem("profileImage");
+
+  // Update name if element exists
+  const nameElement = document.getElementById("displayName");
+  if (nameElement) {
+    nameElement.innerText = `Welcome, ${userName}`;
+  }
+
+  // Update profile image if exists
+  const imgElement = document.getElementById("profileImage");
+  if (imgElement && userImg) {
+    imgElement.src = userImg;
+  }
+
+
+  </script>
+</body>
+</html>
