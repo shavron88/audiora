@@ -1,0 +1,118 @@
+<!-- playlist.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Playlists - Audiora</title>
+  <link rel="stylesheet" href="playlist.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <img src="audioralogo.png" class="logo" alt="Audiora Logo" />
+      <div class="profile">
+
+ <div class="profile-info">
+    <img src="assets/user.png" alt="User" class="profile-pic" id="profileImage" />
+    <h2 id="displayName">Welcome, User</h2>
+
+        <img src="assets/profile.jpg" alt="User" class="profile-pic" />
+        <h3>User Name</h3>
+        <div class="genres">
+          <span>Pop</span>
+          <span>Hip-Hop</span>
+        </div>
+      </div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="recentlyplay.html">Recently Played</a>
+        <a href="fav.html">Favorites</a>
+        <a href="playlist.html" class="active">My Playlists</a>
+        <a href="profile.html">Profile</a>
+        <a href="blend.html">Blend</a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="header">
+        <h2>My Playlists</h2>
+        <button onclick="createPlaylist()">+ New Playlist</button>
+      </div>
+
+      <div class="playlist-grid" id="playlistGrid">
+        <!-- Example playlist -->
+        <div class="playlist-card">
+          <h4>Night Vibes</h4>
+          <ul>
+            <li>✨ Midnight Flow</li>
+            <li>🎧 Ambient City</li>
+            <li>🌌 Dream Loop</li>
+          </ul>
+          <div class="actions">
+            <button onclick="playPlaylist()">▶</button>
+            <button onclick="renamePlaylist()">✏</button>
+            <button onclick="removePlaylist(this)">🗑</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    function createPlaylist() {
+      const name = prompt("Enter playlist name:");
+      if (!name) return;
+
+      const card = document.createElement("div");
+      card.className = "playlist-card";
+      card.innerHTML = `
+        <h4>${name}</h4>
+        <ul><li>🎵 New Track</li></ul>
+        <div class="actions">
+          <button onclick="playPlaylist()">▶</button>
+          <button onclick="renamePlaylist()">✏</button>
+          <button onclick="removePlaylist(this)">🗑</button>
+        </div>
+      `;
+      document.getElementById("playlistGrid").appendChild(card);
+    }
+
+    function removePlaylist(btn) {
+      if (confirm("Remove this playlist?")) {
+        btn.closest(".playlist-card").remove();
+      }
+    }
+
+    function playPlaylist() {
+      alert("Playing playlist...");
+    }
+
+    function renamePlaylist() {
+      const newName = prompt("Rename playlist:");
+      if (newName) {
+        event.target.closest(".playlist-card").querySelector("h4").innerText = newName;
+      }
+    }
+
+ // Load display name and profile picture
+  const userName = localStorage.getItem("displayName") || "User";
+  const userImg = localStorage.getItem("profileImage");
+
+  // Update name if element exists
+  const nameElement = document.getElementById("displayName");
+  if (nameElement) {
+    nameElement.innerText = `Welcome, ${userName}`;
+  }
+
+  // Update profile image if exists
+  const imgElement = document.getElementById("profileImage");
+  if (imgElement && userImg) {
+    imgElement.src = userImg;
+  }
+
+
+  </script>
+</body>
+</html>

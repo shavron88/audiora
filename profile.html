@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Audiora - Profile</title>
+  <link rel="stylesheet" href="profile.css" />
+  
+</head>
+<body>
+  <div class="profile-container">
+    <aside class="sidebar">
+      <div class="profile-info">
+        <img src="assets/user.png" alt="User" class="profile-pic" id="profileImage" />
+        <h2 id="displayName">Welcome, User</h2>
+        <h4>Your Music holds your Aura</h4>
+        <div class="genres" id="userGenres">
+          <!-- Genres from localStorage -->
+        </div>
+      </div>
+      <nav>
+        <a href="index.html">🏠 Home</a>
+        <a href="fav.html">❤️ Favorites</a>
+        <a href="playlist.html">🎶 My Playlists</a>
+        <a href="blend.html">🔗 My Blend</a>
+        <a href="categories.html">🎧 Genres</a>
+      </nav>
+    </aside>
+
+    <main class="profile-main">
+      <h1>Profile Overview</h1>
+      <p>Here you can manage your musical identity on Audiora.</p>
+
+      <div class="edit-section">
+        <button onclick="toggleEdit()">Edit Profile</button>
+        <button onclick="logout()">Log Out</button>
+
+        <div class="edit-form" id="editForm">
+          <label for="name">Change Display Name</label>
+          <input type="text" id="nameInput" placeholder="Enter new name" />
+
+          <label for="blendCode">Update Blend Code</label>
+          <input type="text" id="blendInput" placeholder="Enter blend code" />
+
+          <label for="profilePic">Change Profile Picture</label>
+          <input type="file" id="profilePic" accept="image/*" />
+
+          <button onclick="saveProfile()">Save Changes</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Load genres
+    const userGenres = JSON.parse(localStorage.getItem("userGenres")) || [];
+    const genreContainer = document.getElementById("userGenres");
+
+    userGenres.forEach(genre => {
+      const tag = document.createElement("span");
+      tag.className = "genre-tag";
+      tag.innerText = genre;
+      genreContainer.appendChild(tag);
+    });
+
+    // Load profile data
+    const displayName = localStorage.getItem("displayName") || "User";
+    const blendCode = localStorage.getItem("blendCode") || "";
+    const profileImage = localStorage.getItem("profileImage");
+
+    document.getElementById("displayName").innerText = `Welcome, ${displayName}`;
+    if (profileImage) {
+      document.getElementById("profileImage").src = profileImage;
+    }
+
+    function toggleEdit() {
+      const form = document.getElementById("editForm");
+      form.style.display = form.style.display === "none" ? "block" : "none";
+    }
+
+    function saveProfile() {
+      const name = document.getElementById("nameInput").value;
+      const blend = document.getElementById("blendInput").value;
+      const picFile = document.getElementById("profilePic").files[0];
+
+      if (name) {
+        localStorage.setItem("displayName", name);
+        document.getElementById("displayName").innerText = `Welcome, ${name}`;
+      }
+
+      if (blend) {
+        localStorage.setItem("blendCode", blend);
+        alert("Blend code updated!");
+      }
+
+      if (picFile) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const imageData = e.target.result;
+          localStorage.setItem("profileImage", imageData);
+          document.getElementById("profileImage").src = imageData;
+        };
+        reader.readAsDataURL(picFile);
+      }
+
+      alert("Profile updated successfully!");
+    }
+
+    function logout() {
+      localStorage.clear();
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>

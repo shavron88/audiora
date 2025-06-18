@@ -1,0 +1,42 @@
+body { 
+  font-family: sans-serif;
+  background: #101820;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-container {
+  text-align: center;
+  background: #1e2a38;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 300px;
+}
+
+.logo {
+  width: 200px;
+  margin-bottom: 0px;
+  font-weight: 500px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 8px;
+}
+
+button {
+  width: 50%;
+  padding: 10px;
+  background: #00c6a7;
+  border: none;
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer; 
+}

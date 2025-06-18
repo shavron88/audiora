@@ -1,0 +1,99 @@
+<!-- recentlyplayed.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Recently Played - Audiora</title>
+  <link rel="stylesheet" href="recentlyplay.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <img src="audioralogo.png" class="logo" alt="Audiora Logo" />
+
+      <div class="profile">
+
+ <div class="profile-info">
+    <img src="assets/user.png" alt="User" class="profile-pic" id="profileImage" />
+    <h2 id="displayName">Welcome, User</h2>
+
+        <!-- file.jpg" alt="User" class="profile-pic" />
+        <h3>User Name</h3> -->
+        <!-- <div class="genres"><img src="assets/pro -->
+          <span>Pop</span>
+          <span>Rock</span>
+        </div>
+      </div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="recentlyplay.html" class="active">Recently Played</a>
+        <a href="fav.html">Favorites</a>
+        <a href="playlist.html">My Playlists</a>
+        <a href="profile.html">Profile</a>
+        <a href="blend.html">Blend</a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+    
+      <h2>Recently Played</h2>
+      <div class="track-list">
+        <div class="track">
+          <div class="icon pink">▶</div>
+          
+          <div class="info">
+            <h4>Example Song 1</h4>
+            <p>Artist Name</p>
+          </div>
+          <span class="time">3:45</span>
+        </div>
+        <div class="track">
+          <div class="icon yellow">▶</div>
+          <div class="info">
+            <h4>Example Song 2</h4>
+            <p>Artist Name</p>
+          </div>
+          <span class="time">3:45</span>
+        </div>
+        <div class="track">
+          <div class="icon blue">▶</div>
+          <div class="info">
+            <h4>Example Song 3</h4>
+            <p>Artist Name</p>
+          </div>
+          <span class="time">3:45</span>
+        </div>
+        <div class="track">
+          <div class="icon red">▶</div>
+          <div class="info">
+            <h4>Example Song 4</h4>
+            <p>Artist Name</p>
+          </div>
+          <span class="time">3:45</span>
+        </div>
+      </div>
+    </main>
+  </div>
+
+
+  <script> 
+     // Load display name and profile picture
+  const userName = localStorage.getItem("displayName") || "User";
+  const userImg = localStorage.getItem("profileImage");
+
+  // Update name if element exists
+  const nameElement = document.getElementById("displayName");
+  if (nameElement) {
+    nameElement.innerText = `Welcome, ${userName}`;
+  }
+
+  // Update profile image if exists
+  const imgElement = document.getElementById("profileImage");
+  if (imgElement && userImg) {
+    imgElement.src = userImg;
+  }
+  </script>
+</body>
+</html>
