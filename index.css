@@ -1,0 +1,112 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #0a0a15;
+  color: #fff;
+}
+
+.app {
+  display: flex;
+}
+
+.sidebar {
+  width: 250px;
+background : linear-gradient(160deg, #021f1f, #0c3e3e);
+    color: #fff;
+  height: 100vh;
+  padding: 20px;
+}
+
+.logo {
+  width: 110px;
+  margin-bottom: 10px;
+  margin-top: 2px;
+}
+
+.profile {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.profile-pic {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.genres span {
+  display: inline-block;
+  background: #00c6a7;
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin: 3px;
+  font-size: 0.75rem;
+}
+
+nav a {
+  display: block;
+  color : #ddd;
+  text-decoration: none;
+  margin: 10px 0;
+  padding: 8px 15px;
+  border-radius: 8px;
+}
+
+nav a:hover {
+  background: #1c2635 ;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 30px;
+}
+
+.songs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.song-card {
+  background: #1a1f2d;
+  padding: 10px;
+  border-radius: 15px;
+  width: 160px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.song-card img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.song-card button {
+  margin: 5px;
+  background: none;
+  border: none;
+  color: #00c6a7;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.player {
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+#soundbar {
+  flex-grow: 1;
+  height: 8px;
+  background: linear-gradient(to right, #00c6a7, #005f57);
+  border-radius: 5px;
+  animation: pulse 1s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.3 }
+  50% { opacity: 1 }
+}
