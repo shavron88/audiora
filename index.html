@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script src="https://e-cdns-files.dzcdn.net/js/min/dz.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Audiora</title>
@@ -83,12 +84,12 @@
         </div>
       </section>
 
-      <section class="jump-back">
+      <section class="jump-back" id="jumpBackSection">
         <h2>Jump back in</h2>
-        <div class="songs-grid">
-          <div class="song-card">
-            <img src="images/call me back.jpeg" alt="Call Me Back" />
-            <h3 class="song-title">Call Me Back</h3>
+        <div class="songs-grid" id="jumpBackSongs">
+          <div class="song-card" onclick="playAudiusTrack()">
+            <img src="images/RICOCHET.jpeg" alt="You" />
+            <h3 class="song-title">You</h3>
             <p class="artist-name">-Chase Atlantic</p>
           </div>
           <div class="song-card">
@@ -96,10 +97,10 @@
             <h3 class="song-title">Say</h3>
             <p class="artist-name">-keshi</p>
           </div>
-          <div class="song-card">
+          <div class="song-card" >
             <img src="images/car crash.jpeg" alt="Car Crash" />
             <h3 class="song-title">Car Crash</h3>
-            <p class="artist-name">-eaj</p>
+            <p class="artist-name">-eaJ</p>
           </div>
           <div class="song-card">
             <img src="images/call me back.jpeg" alt="Slide" />
@@ -124,9 +125,9 @@
           </div>
          </section>
 
-          <section class="jump-back">
+          <section class="trending-now" id="trendingSection">
         <h2>Trending Now</h2>
-        <div class="songs-grid">
+        <div class="songs-grid" id="trendingSongs">
           <div class="song-card">
             <img src="images/time.jpeg" alt="Timeless" />
             <h3 class="song-title">Timeless</h3>
@@ -165,9 +166,9 @@
         </div>
       </section>
 
-      <section class="new-releases">
+      <section class="new-releases" id="releasesSection">
         <h2>New Releases</h2>
-         <div class="songs-grid">
+         <div class="songs-grid" id="releaseSongs">
           <div class="song-card">
             <img src="images/annie.jpeg" alt="annie." />
             <h3 class="song-title">annie.</h3>
@@ -206,15 +207,15 @@
         </div>
       </section>
 
-      <section class="top-charts">
+      <section class="top-charts" id="chartsSection">
         <h2>Top Charts</h2>
-        <div class="songs-grid">
-          <div class="song-card">
+        <div class="songs-grid" id="chartSongs">
+          <div class="song-card" onclick="playDieWithASmile()">
            <img src="images/d.jpeg" alt="Die With A Smile">
           <p class="song-title">Die With A Smile</p>
           <p class="artist-name">-Bruno Mars</p>
         </div>
-          <div class="song-card">
+          <div class="song-card" onclick="backtofriends()">
             <img src="images/b.jpeg" alt="Back to Friends">
             <p class="song-title">Back to Friends</p>
             <p class="artist-name">-Sombr</p>
@@ -249,52 +250,48 @@
     </main>
   </div>
 
-      <!-- Audio Player -->
-    <div class="player">
-      <audio id="audioPlayer" controls></audio>
-      <button onclick="toggleLoop()">🔁</button>
-      <div id="soundbar"></div>
+     <div class="player">
+  <div class="controls-row">
+    <button onclick="prevTrack()">⏮️</button>
+    <button onclick="togglePlayPause()" id="playPauseBtn">▶️</button>
+    <button onclick="nextTrack()">⏭️</button>
+
+    <!-- Volume -->
+    <div class="volume-container">
+      <span class="volume-icon">🔊</span>
+      <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1" oninput="changeVolume()" />
     </div>
+  </div>
 
-  <script>
-    const genres = JSON.parse(localStorage.getItem("userGenres") || "[]");
-    const container = document.getElementById("userGenres");
-    genres.forEach(g => {
-      const span = document.createElement("span");
-      span.textContent = g;
-      container.appendChild(span);
-    });
+  <div class="progress-row">
+    <span id="currentTime">0:00</span>
+    <input type="range" id="progressBar" value="0" min="0" max="100" step="0.1" oninput="seekTrack()">
+    <span id="totalTime">0:00</span>
+  </div>
 
-    function playSong(url) {
-      const audio = document.getElementById("audioPlayer");
-      audio.src = url;
-      audio.play();
-    }
+  <audio id="audioPlayer" ontimeupdate="updateProgress()" onloadedmetadata="setDuration()"></audio>
 
-    function toggleLike(e) {
-      e.stopPropagation();
-      e.target.textContent = e.target.textContent === "❤️" ? "💔" : "❤️";
-    }
+</div>
 
-    function saveToPlaylist(e) {
-      e.stopPropagation();
-      alert("Saved to playlist!");
-    }
+<!-- Site Logic -->
+<script>
+  // Load user info
+  const userName = localStorage.getItem("displayName") || "User";
+  const userImg = localStorage.getItem("profileImage");
 
-    function toggleLoop() {
-      const audio = document.getElementById("audioPlayer");
-      audio.loop = !audio.loop;
-      alert("Loop " + (audio.loop ? "enabled" : "disabled"));
-    }
+  const nameElement = document.getElementById("displayName");
+  if (nameElement) nameElement.innerText = `Welcome, ${userName}`;
 
-    const userName = localStorage.getItem("displayName") || "User";
-    const userImg = localStorage.getItem("profileImage");
+  const imgElement = document.getElementById("profileImage");
+  if (imgElement && userImg) imgElement.src = userImg;
 
-    const nameElement = document.getElementById("displayName");
-    if (nameElement) nameElement.innerText = `Welcome, ${userName}`;
 
-    const imgElement = document.getElementById("profileImage");
-    if (imgElement && userImg) imgElement.src = userImg;
-  </script>
+  //  Audius Streaming Integration
+  async function getAudiusHost() {
+    const res = await fetch('https://api.audius.co');
+    const list = await res.json();
+    return list.data[0];
+  }
+</script>
 </body>
 </html>
