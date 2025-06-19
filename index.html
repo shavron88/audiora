@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Audiora</title>
   <link rel="stylesheet" href="index.css"/>
-  <link rel="stylesheet" href="index.js" />
+  <script src="index.js" defer></script>
   <link rel="icon" href="images/logo.png" type="image/x-icon">
 </head>
 <body>
@@ -31,13 +31,15 @@
     <!-- Sidebar -->
     <aside class="sidebar">
       <div class="profile-info">
-        <img src="assets/user.png" alt="User" class="profile-pic" id="profileImage" />
-        <h2 id="displayName">Welcome, User</h2>
-        <div class="genres" id="userGenres"></div>
+       <div class="profile-pic-wrapper">
+       <img src="assets/user.png" alt="User" class="profile-pic" id="profileImage" />
+      </div>
+      <h2 id="displayName">Welcome, User</h2>
+       <div class="genres" id="userGenres"></div>
       </div>
       <nav>
         <a href="index.html" class="active">Home</a>
-        <a href="recently.html">Recently Played</a>
+        <a href="recentlyplay.html">Recently Played</a>
         <a href="fav.html">Favorites</a>
         <a href="playlist.html">My Playlists</a>
         <a href="profile.html">Profile</a>
@@ -255,7 +257,7 @@
     </div>
 
   <script>
-    const genres = JSON.parse(localStorage.getItem("genres") || "[]");
+    const genres = JSON.parse(localStorage.getItem("userGenres") || "[]");
     const container = document.getElementById("userGenres");
     genres.forEach(g => {
       const span = document.createElement("span");
@@ -289,7 +291,7 @@
     const userImg = localStorage.getItem("profileImage");
 
     const nameElement = document.getElementById("displayName");
-if (nameElement) nameElement.innerText = `Welcome, ${userName}`;
+    if (nameElement) nameElement.innerText = `Welcome, ${userName}`;
 
     const imgElement = document.getElementById("profileImage");
     if (imgElement && userImg) imgElement.src = userImg;
