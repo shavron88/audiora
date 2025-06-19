@@ -1,29 +1,41 @@
-<!-- recentlyplayed.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Recently Played - Audiora</title>
-  <link rel="stylesheet" href="recentlyplay.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Audiora</title>
+  <link rel="stylesheet" href="index.css"/>
+  <script src="index.js" defer></script>
+  <link rel="icon" href="images/logo.png" type="image/x-icon">
 </head>
 <body>
-  <div class="container">
+<!-- Header -->
+  <header class="navbar">
+  <div class="logo">
+    <a href="index.html"><img src="images/logo.png" alt="Logo" /></a>
+    <h1>Audiora</h1>
+  </div>
+
+  <div class="nav-center">
+    <div class="search-container">
+     <input type="text" id="searchInput" placeholder="Search..." />
+    <button class="search-icon" id="searchBtn"></button>
+    </div>
+  </div>
+  <div class="nav-right">
+    <a href="login.html"><button class="login-btn" onclick="toggleModal()">Login</button></a>
+  </div>
+</header>
+
+<div class="app">
     <!-- Sidebar -->
     <aside class="sidebar">
-      <img src="audioralogo.png" class="logo" alt="Audiora Logo" />
-
-      <div class="profile">
-
- <div class="profile-info">
-    <img src="assets/user.png" alt="User" class="profile-pic" id="profileImage" />
-    <h2 id="displayName">Welcome, User</h2>
-
-        <!-- file.jpg" alt="User" class="profile-pic" />
-        <h3>User Name</h3> -->
-        <!-- <div class="genres"><img src="assets/pro -->
-          <span>Pop</span>
-          <span>Rock</span>
-        </div>
+      <div class="profile-info">
+       <div class="profile-pic-wrapper">
+       <img src="assets/user.png" alt="User" class="profile-pic" id="profileImage" />
+      </div>
+      <h2 id="displayName">Welcome, User</h2>
+       <div class="genres" id="userGenres"></div>
       </div>
       <nav>
         <a href="index.html">Home</a>
@@ -37,63 +49,64 @@
 
     <!-- Main Content -->
     <main class="main-content">
-    
       <h2>Recently Played</h2>
-      <div class="track-list">
-        <div class="track">
-          <div class="icon pink">▶</div>
-          
-          <div class="info">
-            <h4>Example Song 1</h4>
-            <p>Artist Name</p>
-          </div>
-          <span class="time">3:45</span>
-        </div>
-        <div class="track">
-          <div class="icon yellow">▶</div>
-          <div class="info">
-            <h4>Example Song 2</h4>
-            <p>Artist Name</p>
-          </div>
-          <span class="time">3:45</span>
-        </div>
-        <div class="track">
-          <div class="icon blue">▶</div>
-          <div class="info">
-            <h4>Example Song 3</h4>
-            <p>Artist Name</p>
-          </div>
-          <span class="time">3:45</span>
-        </div>
-        <div class="track">
-          <div class="icon red">▶</div>
-          <div class="info">
-            <h4>Example Song 4</h4>
-            <p>Artist Name</p>
-          </div>
-          <span class="time">3:45</span>
-        </div>
+      <div class="track">
+       <img src="images/song1.jpg" alt="Song 1" class="track-img" />
+       <div class="track-info">
+       <h4>Example Song 1</h4>
+       <p>Artist Name</p>
+      </div>
       </div>
     </main>
   </div>
 
 
-  <script> 
-     // Load display name and profile picture
-  const userName = localStorage.getItem("displayName") || "User";
-  const userImg = localStorage.getItem("profileImage");
+      <!-- Audio Player -->
+    <div class="player">
+      <audio id="audioPlayer" controls></audio>
+      <button onclick="toggleLoop()">🔁</button>
+      <div id="soundbar"></div>
+    </div>
 
-  // Update name if element exists
-  const nameElement = document.getElementById("displayName");
-  if (nameElement) {
-    nameElement.innerText = `Welcome, ${userName}`;
-  }
+  <script>
+    const genres = JSON.parse(localStorage.getItem("userGenres") || "[]");
+    const container = document.getElementById("userGenres");
+    genres.forEach(g => {
+      const span = document.createElement("span");
+      span.textContent = g;
+      container.appendChild(span);
+    });
 
-  // Update profile image if exists
-  const imgElement = document.getElementById("profileImage");
-  if (imgElement && userImg) {
-    imgElement.src = userImg;
-  }
+    function playSong(url) {
+      const audio = document.getElementById("audioPlayer");
+      audio.src = url;
+      audio.play();
+    }
+
+    function toggleLike(e) {
+      e.stopPropagation();
+      e.target.textContent = e.target.textContent === "❤️" ? "💔" : "❤️";
+    }
+
+    function saveToPlaylist(e) {
+      e.stopPropagation();
+      alert("Saved to playlist!");
+    }
+
+    function toggleLoop() {
+      const audio = document.getElementById("audioPlayer");
+      audio.loop = !audio.loop;
+      alert("Loop " + (audio.loop ? "enabled" : "disabled"));
+    }
+
+    const userName = localStorage.getItem("displayName") || "User";
+    const userImg = localStorage.getItem("profileImage");
+
+    const nameElement = document.getElementById("displayName");
+    if (nameElement) nameElement.innerText = `Welcome, ${userName}`;
+
+    const imgElement = document.getElementById("profileImage");
+    if (imgElement && userImg) imgElement.src = userImg;
   </script>
 </body>
 </html>

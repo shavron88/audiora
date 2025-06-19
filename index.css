@@ -258,6 +258,12 @@ section {
   font-size: 1.1rem;
 }
 
+.youtube-player {
+  position: fixed;
+  bottom: 60px;
+  left: 250px;
+  z-index: 1000;
+}
 
 /* ===== Trending-songs ===== */
 .songs-grid {
