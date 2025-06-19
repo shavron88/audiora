@@ -2,24 +2,42 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Home - Audiora</title>
-  
-  <link rel="stylesheet" href="index.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Audiora</title>
+  <link rel="stylesheet" href="index.css"/>
+  <link rel="stylesheet" href="index.js" />
+  <link rel="icon" href="images/logo.png" type="image/x-icon">
 </head>
 <body>
-  <div class="app">
-    <!-- Sidebar -->
+<!-- Header -->
+  <header class="navbar">
+  <div class="logo">
+    <a href="index.html"><img src="images/logo.png" alt="Logo" /></a>
+    <h1>Audiora</h1>
+  </div>
 
-<aside class="sidebar">
-  <div class="profile-info">
-    <img src="assets/user.png" alt="User" class="profile-pic" id="profileImage" />
-    <h2 id="displayName">Welcome, User</h2>
-  
+  <div class="nav-center">
+    <div class="search-container">
+     <input type="text" id="searchInput" placeholder="Search..." />
+    <button class="search-icon" id="searchBtn"></button>
+    </div>
+  </div>
+  <div class="nav-right">
+    <a href="login.html"><button class="login-btn" onclick="toggleModal()">Login</button></a>
+  </div>
+</header>
+
+<div class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="profile-info">
+        <img src="assets/user.png" alt="User" class="profile-pic" id="profileImage" />
+        <h2 id="displayName">Welcome, User</h2>
         <div class="genres" id="userGenres"></div>
       </div>
       <nav>
-        <a href="index.html">Home</a>
-        <a href="recentlyplay.html">Recently Played</a>
+        <a href="index.html" class="active">Home</a>
+        <a href="recently.html">Recently Played</a>
         <a href="fav.html">Favorites</a>
         <a href="playlist.html">My Playlists</a>
         <a href="profile.html">Profile</a>
@@ -29,29 +47,214 @@
 
     <!-- Main Content -->
     <main class="main-content">
-      <h2>Recommended For You</h2>
-      <div class="songs">
-        <div class="song-card" onclick="playSong('music/sample.mp3')">
-          <img src="assets/song-cover.jpg" alt="Song" />
-          <h4>Sample Song</h4>
-          <button onclick="toggleLike(event)">❤️</button>
-          <button onclick="saveToPlaylist(event)">➕</button>
+      <section class="recently-played">
+        <h2>Recently played Artists</h2>
+        <div class="playlist-row">
+          <div class="playlist-card">
+            <div class="artist-overlay"><h3>Chase Atlantic</h3></div>
+            <img src="images/ca.jpeg" alt="Chase Atlantic" class="artist-img" />
+          </div>
+          <div class="playlist-card">
+            <div class="artist-overlay"><h3>keshi</h3></div>
+            <img src="images/keshi.jpeg" alt="keshi" class="artist-img" />
+          </div>
+          <div class="playlist-card">
+            <div class="artist-overlay"><h3>HAVI</h3></div>
+            <img src="images/havi.jpeg" alt="HAVI" class="artist-img" />
+          </div>
+          <div class="playlist-card">
+            <div class="artist-overlay"><h3>eaJ</h3></div>
+            <img src="images/eaj.jpeg" alt="eaJ" class="artist-img" />
+          </div>
+          <div class="playlist-card">
+            <div class="artist-overlay"><h3>I.M</h3></div>
+            <img src="images/i.jpeg" alt="I.M" class="artist-img" />
+          </div>
+          <div class="playlist-card">
+            <div class="artist-overlay"><h3>Conan Gray</h3></div>
+            <img src="images/gray.jpeg" alt="Conan Gray" class="artist-img" />
+          </div>
+          <div class="playlist-card">
+            <div class="artist-overlay"><h3>brb.</h3></div>
+            <img src="images/brb..jpeg" alt="brb." class="artist-img" />
+          </div>
         </div>
-      </div>
+      </section>
 
-      
+      <section class="jump-back">
+        <h2>Jump back in</h2>
+        <div class="songs-grid">
+          <div class="song-card">
+            <img src="images/call me back.jpeg" alt="Call Me Back" />
+            <h3 class="song-title">Call Me Back</h3>
+            <p class="artist-name">-Chase Atlantic</p>
+          </div>
+          <div class="song-card">
+            <img src="images/say.jpeg" alt="Say" />
+            <h3 class="song-title">Say</h3>
+            <p class="artist-name">-keshi</p>
+          </div>
+          <div class="song-card">
+            <img src="images/car crash.jpeg" alt="Car Crash" />
+            <h3 class="song-title">Car Crash</h3>
+            <p class="artist-name">-eaj</p>
+          </div>
+          <div class="song-card">
+            <img src="images/call me back.jpeg" alt="Slide" />
+            <h3 class="song-title">Slide</h3>
+            <p class="artist-name">-Chase Atlantic</p>
+          </div>
+          <div class="song-card">
+            <img src="images/summer.jpeg" alt="Summer" />
+            <h3 class="song-title">Summer</h3>
+            <p class="artist-name">-Wave To Earth</p>
+          </div>
+          <div class="song-card">
+            <img src="images/mehram.jpeg" alt="Mehram" />
+            <h3 class="song-title">Mehram</h3>
+            <p class="artist-name">-Arooj Aftab</p>
+          </div>
+          <div class="song-card">
+            <img src="images/na.jpeg" alt="Na Milay" />
+            <h3 class="song-title">Na Milay</h3>
+            <p class="artist-name">-HAVI</p>
+          </div>
+          </div>
+         </section>
 
-      <!-- Audio Player -->
-      <div class="player">
-        <audio id="audioPlayer" controls></audio>
-        <button onclick="toggleLoop()">🔁</button>
-        <div id="soundbar"></div>
-      </div>
+          <section class="jump-back">
+        <h2>Trending Now</h2>
+        <div class="songs-grid">
+          <div class="song-card">
+            <img src="images/time.jpeg" alt="Timeless" />
+            <h3 class="song-title">Timeless</h3>
+            <p class="artist-name">-The Weeknd</p>
+          </div>
+          <div class="song-card">
+            <img src="images/r.jpeg" alt="Roop" />
+            <h3 class="song-title">Roop</h3>
+            <p class="artist-name">-NAYEL</p>
+          </div>
+          <div class="song-card">
+            <img src="images/wi.jpeg" alt="WILDFLOWERS" />
+            <h3 class="song-title">WILDFLOWERS</h3>
+            <p class="artist-name">-Billie Eilish</p>
+          </div>
+          <div class="song-card">
+            <img src="images/Pal Pal.jpeg" alt="Pal Pal" />
+            <h3 class="song-title">Pal Pal</h3>
+            <p class="artist-name">-Afusic</p>
+          </div>
+          <div class="song-card">
+            <img src="images/gray.jpeg" alt="Family Line" />
+            <h3 class="song-title">Family Line</h3>
+            <p class="artist-name">-Conan Gray</p>
+          </div>
+          <div class="song-card">
+            <img src="images/doubt.jpeg" alt="Doubt" />
+            <h3 class="song-title">Doubt</h3>
+            <p class="artist-name">-Twenty One Pilots</p>
+          </div>
+          <div class="song-card">
+            <img src="images/ordinary.jpeg" alt="Ordinary" />
+            <h3 class="song-title">Ordinary</h3>
+            <p class="artist-name">-Alex Warren</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="new-releases">
+        <h2>New Releases</h2>
+         <div class="songs-grid">
+          <div class="song-card">
+            <img src="images/annie.jpeg" alt="annie." />
+            <h3 class="song-title">annie.</h3>
+            <p class="artist-name">-Wave To Earth</p>
+          </div>
+          <div class="song-card">
+            <img src="images/sh.jpeg" alt="Shinunoga e-wa" />
+            <h3 class="song-title">Shinunoga e-wa</h3>
+            <p class="artist-name">-Fujii Kaze</p>
+          </div>
+          <div class="song-card">
+            <img src="images/kinaaray.jpeg" alt="Kinaaray" />
+            <h3 class="song-title">Kinaaray</h3>
+            <p class="artist-name">-Abdul Hannan</p>
+          </div>
+          <div class="song-card">
+            <img src="images/eaj.jpeg" alt="merry go round" />
+            <h3 class="song-title">merry go round</h3>
+            <p class="artist-name">-eaJ</p>
+          </div>
+          <div class="song-card">
+            <img src="images/bl.jpeg" alt="Beautiful Liar" />
+            <h3 class="song-title">Beautiful Liar</h3>
+            <p class="artist-name">-MONSTA X</p>
+          </div>
+          <div class="song-card">
+            <img src="images/duh.jpeg" alt="DUH!" />
+            <h3 class="song-title">DUH!</h3>
+            <p class="artist-name">-P1Harmony</p>
+          </div>
+          <div class="song-card">
+            <img src="images/RICOCHET.jpeg" alt="RICOCHET" />
+            <h3 class="song-title">RICOCHET</h3>
+            <p class="artist-name">-Chase Atlantic</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="top-charts">
+        <h2>Top Charts</h2>
+        <div class="songs-grid">
+          <div class="song-card">
+           <img src="images/d.jpeg" alt="Die With A Smile">
+          <p class="song-title">Die With A Smile</p>
+          <p class="artist-name">-Bruno Mars</p>
+        </div>
+          <div class="song-card">
+            <img src="images/b.jpeg" alt="Back to Friends">
+            <p class="song-title">Back to Friends</p>
+            <p class="artist-name">-Sombr</p>
+          </div>
+          <div class="song-card">
+            <img src="images/wi.jpeg" alt="Wildflowers">
+            <p class="song-title">WILDFLOWERS</p>
+            <p class="artist-name">-Billie Eilish</p>
+          </div>
+          <div class="song-card">
+            <img src="images/t.jpeg" alt="That's So True">
+            <p class="song-title">That's So True</p>
+            <p class="artist-name">-Gracie Abrams</p>
+          </div>
+          <div class="song-card">
+            <img src="images/Zombie Lady.jpeg" alt="Tangerine">
+            <p class="song-title">Tangerine</p>
+            <p class="artist-name">-d4vd</p>
+          </div>
+          <div class="song-card">
+            <img src="images/wi.jpeg" alt="BIRDS OF A FEATHER">
+            <p class="song-title">BIRDS OF A FEATHER</p>
+            <p class="artist-name">-Billie Eilish</p>
+          </div>
+          <div class="song-card">
+            <img src="images/t.jpeg" alt="Love You, I'm Sorry">
+            <p class="song-title">Love You, I'm Sorry</p>
+            <p class="artist-name">-Gracie Abrams</p>
+          </div>
+        </div>
+      </section>
     </main>
   </div>
 
+      <!-- Audio Player -->
+    <div class="player">
+      <audio id="audioPlayer" controls></audio>
+      <button onclick="toggleLoop()">🔁</button>
+      <div id="soundbar"></div>
+    </div>
+
   <script>
-    // Load genres from localStorage
     const genres = JSON.parse(localStorage.getItem("genres") || "[]");
     const container = document.getElementById("userGenres");
     genres.forEach(g => {
@@ -80,27 +283,16 @@
       const audio = document.getElementById("audioPlayer");
       audio.loop = !audio.loop;
       alert("Loop " + (audio.loop ? "enabled" : "disabled"));
-
     }
 
-    
-  // Load display name and profile picture
-  const userName = localStorage.getItem("displayName") || "User";
-  const userImg = localStorage.getItem("profileImage");
+    const userName = localStorage.getItem("displayName") || "User";
+    const userImg = localStorage.getItem("profileImage");
 
-  // Update name if element exists
-  const nameElement = document.getElementById("displayName");
-  if (nameElement) {
-    nameElement.innerText = `Welcome, ${userName}`;
-  }
+    const nameElement = document.getElementById("displayName");
+if (nameElement) nameElement.innerText = `Welcome, ${userName}`;
 
-  // Update profile image if exists
-  const imgElement = document.getElementById("profileImage");
-  if (imgElement && userImg) {
-    imgElement.src = userImg;
-  }
-
-
+    const imgElement = document.getElementById("profileImage");
+    if (imgElement && userImg) imgElement.src = userImg;
   </script>
 </body>
 </html>
