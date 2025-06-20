@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pick Your Vibe - Audiora</title>
+  <link rel="stylesheet" href="categories.css" />
+  <link rel="icon" href="logo.png" type="image/x-icon">
+</head>
+<body>
+  <div class="container">
+    <h1>🎧 Choose Your Music Vibe</h1>
+    <p>Pick at least 2 genres to shape your music aura</p>
+    <div class="grid" id="genreGrid">
+      <!-- Genres will load here from Deezer API -->
+    </div>
+    <button id="continueBtn" onclick="continueToHome()">Continue</button>
+  </div>
+
+  <script>
+    const genreGrid = document.getElementById('genreGrid');
+    const selectedGenres = new Set();
+
+    async function loadGenresFromDeezer() {
+      try {
+        const res = await fetch('https://cors-anywhere.herokuapp.com/https://api.deezer.com/genre', {
+          headers: {
+            'Origin': 'localhost'
+          }
+        });
+        const data = await res.json();
+        const genres = data.data.filter(g => g.id !== 0);
+
+        genres.forEach((genre) => {
+          const card = document.createElement("div");
+          card.className = "genre-card";
+          card.innerHTML = `
+            <img src="${genre.picture_medium}" alt="${genre.name}">
+            <span>${genre.name}</span>
+          `;
+          card.onclick = () => {
+            card.classList.toggle("selected");
+            selectedGenres.has(genre.name)
+              ? selectedGenres.delete(genre.name)
+              : selectedGenres.add(genre.name);
+          };
+          genreGrid.appendChild(card);
+        });
+      } catch (error) {
+        console.error("Failed to load genres from Deezer:", error);
+        genreGrid.innerHTML = "<p style='color: red;'>Failed to load genres. Please make sure you've enabled access to the proxy and try again.</p>";
+      }
+    }
+
+    function continueToHome() {
+      if (selectedGenres.size < 2) {
+        alert("Please select at least 2 genres.");
+        return;
+      }
+      localStorage.setItem("userGenres", JSON.stringify([...selectedGenres]));
+      window.location.href = "index.html";
+    }
+
+    loadGenresFromDeezer();
+  </script>
+</body>
+</html>
+
+
+   
+
+    
+     
