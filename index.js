@@ -192,6 +192,8 @@ async function playTrack(index, showError = true)
       const stream = await fetch(`${host}/v1/tracks/${data[0].id}/stream?app_name=Audiora`);
       audio.src = stream.url;
       await audio.play();
+      playBtn.textContent = "⏸️";
+
     }
 
     //  Info (title + artist)
