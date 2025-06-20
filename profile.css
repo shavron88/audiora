@@ -1,0 +1,88 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+ background : linear-gradient(160deg, #021f1f, #0c3e3e);
+  color: #fff;
+}
+
+.profile-container {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 280px;
+  background: #0f1115;
+  padding: 20px;
+  box-shadow: 4px 0 12px rgba(0,0,0,0.3);
+}
+
+.profile-info {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.profile-pic {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.genres {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+}
+
+.genre-tag {
+  background: #00cec9;
+  color: #000;
+  border-radius: 12px;
+  padding: 5px 10px;
+  font-size: 0.8rem;
+}
+
+.sidebar nav a {
+  display: block;
+  padding: 10px;
+  margin: 10px 0;
+  color: #ccc;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background 0.3s;
+}
+
+.sidebar nav a:hover {
+  background: #222f3e;
+  color: #fff;
+}
+
+.profile-main {
+  flex: 1;
+  padding: 40px;
+}
+
+.edit-section {
+  margin-top: 30px;
+}
+
+.edit-section button {
+  margin-right: 10px;
+  padding: 10px 18px;
+  border: none;
+  background: #00cec9;
+  color: #000;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.edit-section button:hover {
+  background: #01a3a4;
+}
+
+    

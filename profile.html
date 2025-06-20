@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Profile - Audiora</title>
+  <link rel="stylesheet" href="profile.css" />
+</head>
+<body>
+  <div class="profile-container">
+    <aside class="sidebar">
+      <div class="profile-info">
+        <!-- <img src="assets/user.png" alt="User" class="profile-pic" /> -->
+
+<div class="profile-info">
+    <img src="assets/user.png" alt="User" class="profile-pic" id="profileImage" />
+    <h2 id="displayName">Welcome, User</h2>
+
+
+
+        <!-- <h2>Welcome, User</h2> -->
+        <h4>Your Music Aura</h4>
+        <div class="genres" id="userGenres">
+          <!-- Genres from localStorage -->
+        </div>
+      </div>
+      <nav>
+        <a href="index.html">🏠 Home</a>
+        <a href="fav.html">❤️ Favorites</a>
+        <a href="playlist.html">🎶 My Playlists</a>
+        <a href="blend.html">🔗 My Blend</a>
+        <a href="categories.html">🎧 Genres</a>
+      </nav>
+    </aside>
+
+    <main class="profile-main">
+      <h1>Profile Overview</h1>
+      <p>Here you can manage your musical identity on Audiora.</p>
+      <!-- Optional: Add stats or editable profile sections -->
+      <div class="edit-section">
+        <button onclick="editProfile()">Edit Profile</button>
+        <button onclick="logout()">Log Out</button>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const userGenres = JSON.parse(localStorage.getItem("userGenres")) || [];
+    const genreContainer = document.getElementById("userGenres");
+
+    userGenres.forEach(genre => {
+      const tag = document.createElement("span");
+      tag.className = "genre-tag";
+      tag.innerText = genre;
+      genreContainer.appendChild(tag);
+    });
+
+    function editProfile() {
+      alert("Edit profile feature coming soon.");
+    }
+
+    function logout() {
+      localStorage.clear();
+      window.location.href = "login.html";
+    }
+
+ const userName = localStorage.getItem("displayName") || "User";
+  const userImg = localStorage.getItem("profileImage");
+
+  // Update name if element exists
+  const nameElement = document.getElementById("displayName");
+  if (nameElement) {
+    nameElement.innerText = `Welcome, ${userName}`;
+  }
+
+  // Update profile image if exists
+  const imgElement = document.getElementById("profileImage");
+  if (imgElement && userImg) {
+    imgElement.src = userImg;
+
+
+  </script>
+</body>
+</html>
