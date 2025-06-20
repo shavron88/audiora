@@ -328,4 +328,31 @@ nav a:hover {
     #continueBtn:hover {
       background: #01a3a4;
     }
-  
+    /* ===== Responsive Design ===== */
+  @media (max-width: 768px) {
+  .sidebar {
+    width: 150px;
+    padding: 10px 5px;
+  }
+
+  .logo h1,
+  .profile-info h2,
+  .genres,
+  nav a span {
+    display: none;
+  }
+
+  .profile-pic-wrapper {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto 10px;
+  }
+
+  .profile-info {
+    padding-top: 20px;
+  }
+  nav a {
+    font-size: 10px;
+    padding: 4px 0;
+  }
+}
