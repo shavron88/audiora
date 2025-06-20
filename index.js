@@ -27,21 +27,37 @@ document.addEventListener("DOMContentLoaded", () => {
   totalTime = document.getElementById("totalTime");
   volumeSlider = document.getElementById("volumeSlider");
 
+  loadUserProfile();
+
+waitForSongsToLoad().then(() => {
+  fullPlaylist = getFullPlaylist();
   const storedTrack = JSON.parse(localStorage.getItem("currentTrack"));
   const storedIndex = Number(localStorage.getItem("currentTrackIndex"));
-  if (storedTrack) {
-    fullPlaylist = getFullPlaylist();
-    currentTrackIndex = storedIndex || 0;
-    playTrack(currentTrackIndex);
-  }
-  // Load user profile and playlist
-  loadUserProfile();
-  waitForSongsToLoad().then(() => {
-    fullPlaylist = getFullPlaylist();
-    if (fullPlaylist.length > 0) {
-      loadTrack(currentTrackIndex);
+
+  if (storedTrack && fullPlaylist.length > 0) {
+      currentTrackIndex = storedIndex || 0;
+      const track = fullPlaylist[currentTrackIndex];
+
+      if (track.type === "local") {
+        audio.src = track.url;
+      } else if (track.type === "audius") {
+        getAudiusHost().then(async host => {
+          const res = await fetch(`${host}/v1/tracks/search?query=${encodeURIComponent(track.query)}`);
+          const { data } = await res.json();
+          if (data.length) {
+            const stream = await fetch(`${host}/v1/tracks/${data[0].id}/stream?app_name=Audiora`);
+            audio.src = stream.url;
+          }
+        });
+      }
+// Update player UI
+      playBtn.textContent = "▶️";
+      audio.addEventListener("loadedmetadata", () => {
+        totalTime.textContent = formatTime(audio.duration || 0);
+      });
     }
   });
+
 
   // Events
   audio.addEventListener("timeupdate", updateProgress);
@@ -58,6 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
   window.nextTrack = nextTrack;
   window.prevTrack = prevTrack;
   window.playLocalTrack = playLocalTrack;
+  window.playYou = () => playAudiusNamed("Chase Atlantic You");
   window.playDieWithaSmile = () => playAudiusNamed("Die With a Smile Lady Gaga Bruno Mars");
   window.playBirdsOfaFeather = () => playAudiusNamed("Birds of a feather Billie Eilish");
   window.playHereWithMe = () => playAudiusNamed("Here With Me d4vd");
@@ -142,30 +159,23 @@ function playLocalTrack(filename) {
     return;
   }
   currentTrackIndex = foundIndex;
-  playTrack(currentTrackIndex);
+  playTrack(currentTrackIndex, false);
+
 }
-// ====== Play query ======
+
+// ====== Play by query (Audius) ======
 async function playAudiusNamed(query) {
   fullPlaylist = getFullPlaylist();
-  const lowerQuery = query.toLowerCase();
-  const index = fullPlaylist.findIndex(track =>
-    track.type === "audius" && track.query?.toLowerCase() === lowerQuery
-  );
-
-  if (index === -1) {
-    alert(`No matching track found for "${query}"`);
-    return;
-  }
-
-  currentTrackIndex = index;
+  const index = fullPlaylist.findIndex(track => track.query === query);
+  currentTrackIndex = index >= 0 ? index : 0;
   playTrack(currentTrackIndex);
 }
 
 // ====== Play Track (Local or Audius) ======
-async function playTrack(index) {
+async function playTrack(index, showError = true)
+ {
   const track = fullPlaylist[index];
   if (!track || (!track.url && !track.query)) return;
-console.log("Searching Audius for:", track.query);
 
   currentTrackIndex = index;
 
@@ -183,20 +193,19 @@ console.log("Searching Audius for:", track.query);
       await audio.play();
     }
 
-
     localStorage.setItem("currentTrack", JSON.stringify(track));
     localStorage.setItem("currentTrackIndex", currentTrackIndex);
-
     playBtn.textContent = "⏸️";
-        addToRecentlyPlayed(track);
+    addToRecentlyPlayed(track);
 
-  } catch (err) {
+    } catch (err) {
     console.error(err);
-    alert("Failed to play track.");
+    if (showError) alert("Failed to play track.");
   }
+
 }
 
-    //  Add track to Recently Played //
+// ====== Add track to Recently Played ======
 function addToRecentlyPlayed(track) {
   const recent = JSON.parse(localStorage.getItem("recentlyPlayed") || "[]");
   const updated = [track, ...recent.filter(t =>
@@ -208,7 +217,7 @@ function addToRecentlyPlayed(track) {
 // ====== Get Playlist from DOM ======
 function getFullPlaylist() {
   return Array.from(document.querySelectorAll(".song-card")).map(card => {
-    const onclick = card.querySelector("button")?.getAttribute("onclick") || "";
+    const onclick = card.getAttribute("onclick") || "";
     const title = card.querySelector(".song-title")?.innerText || "";
     const artist = card.querySelector(".artist-name")?.innerText || "";
     const img = card.querySelector("img")?.getAttribute("src") || "";
@@ -218,22 +227,15 @@ function getFullPlaylist() {
       return match ? { type: "local", url: `songs/${match[1]}`, title, artist, image: img } : null;
     }
 
-    // Match all Audius-based dynamic queries
-    const audiusMatch = onclick.match(/playAudiusNamed\(['"](.+?)['"]\)/);
-    if (audiusMatch) {
-      return {
-        type: "audius",
-        query: audiusMatch[1],
-        title,
-        artist,
-        image: img
-      };
-    }
+    if (onclick.includes("playDieWithaSmile")) return { type: "audius", query: "Die With a Smile Lady Gaga Bruno Mars", title, artist, image: img };
+    if (onclick.includes("playBirdsOfaFeather")) return { type: "audius", query: "Birds of a feather Billie Eilish", title, artist, image: img };
+    if (onclick.includes("playHereWithMe")) return { type: "audius", query: "Here With Me d4vd", title, artist, image: img };
+    if (onclick.includes("playDoubt")) return { type: "audius", query: "Doubt Twenty One Pilots", title, artist, image: img };
+    if (onclick.includes("playAudiusTrack")) return { type: "audius", query: `${title} ${artist}`, title, artist, image: img };
 
     return null;
   }).filter(Boolean);
 }
-
 
 // ====== Audius API ======
 async function getAudiusHost() {

@@ -92,7 +92,7 @@ body {
 /* ===== Sidebar  ===== */
 .sidebar {
   overflow-y: auto;
-  width: 250px;
+  width: 550px;
   background: linear-gradient(160deg, #021f1f, #0c3e3e);
   color: #fff;
   height: 100vh;
@@ -112,7 +112,7 @@ body {
 }
 
 .logo h1 {
-  font-size: 1rem; /* reduced */
+  font-size: 1rem; 
   margin-left: 8px;
 }
 
@@ -165,7 +165,28 @@ nav a.active,
 nav a:hover {
   background: #1c2635;
 }
+/* ===== Main Content ===== */
+ .main-content {
+  flex-grow: 1;
+  height: 100vh;
+  overflow-y: auto;
+  scrollbar-width: none; 
+  padding: 20px 20px 100px 40px; /* top, right, bottom, left */
+}
 
+.main-content::-webkit-scrollbar {
+  display: none;
+}
+
+.main-content h2 {
+  padding-top: 20px;
+  padding-left: 20px;
+  font-size: 20px;
+  margin-bottom: 1rem;
+  color: #ffffff;
+}
+
+/* ===== Playlist Row ===== */
 .recently-played-grid {
   display: flex;
   flex-wrap: wrap;
@@ -176,7 +197,7 @@ nav a:hover {
 .recent-card {
   display: flex;
   align-items: center;
-  background: #222;
+  background:#0c3e3e;
   padding: 0.5rem 1rem;
   border-radius: 1rem;
   cursor: pointer;
@@ -186,7 +207,7 @@ nav a:hover {
 }
 
 .recent-card:hover {
-  background: #333;
+  background: #0a0a15;
 }
 
 .recent-img {

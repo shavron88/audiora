@@ -112,7 +112,7 @@ body {
 }
 
 .logo h1 {
-  font-size: 1rem; /* reduced */
+  font-size: 1rem; 
   margin-left: 8px;
 }
 
@@ -478,60 +478,6 @@ section {
 @keyframes pulse {
   0%, 100% { opacity: 0.3 }
   50% { opacity: 1 }
-}
-
-/* ===== Modal ===== */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.modal.hidden {
-  display: none;
-}
-
-.modal-content {
-  background-color: #222;
-  padding: 2rem;
-  border-radius: 10px;
-  width: 300px;
-  color: white;
-  text-align: center;
-  position: relative;
-}
-
-.modal-content input {
-  display: block;
-  width: 100%;
-  margin: 1rem 0;
-  padding: 8px;
-  border: none;
-  border-radius: 5px;
-}
-
-.modal-content button {
-  background-color: #1db954;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 20px;
-  color: white;
-  cursor: pointer;
-}
-
-.close {
-  position: absolute;
-  top: 1rem;
-  right: 1.5rem;
-  cursor: pointer;
-  font-size: 1.5rem;
 }
 
 /* ===== Responsive Design ===== */

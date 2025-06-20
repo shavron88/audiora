@@ -38,17 +38,17 @@
         <div class="genres" id="userGenres"></div>
       </div>
       <nav>
-        <a href="#" onclick="loadPage('index.html')">Home</a>
-        <a href="#" class="active">Recently Played</a>
-        <a href="#" onclick="loadPage('fav.html')">Favorites</a>
-        <a href="#" onclick="loadPage('playlist.html')">My Playlists</a>
-        <a href="#" onclick="loadPage('profile.html')">Profile</a>
-        <a href="#" onclick="loadPage('blend.html')">Blend</a>
+        <a href="index.html">Home</a>
+        <a href="recentlyplay.html" class="active">Recently Played</a>
+        <a href="fav.html">Favorites</a>
+        <a href="playlist.html">My Playlists</a>
+        <a href="profile.html">Profile</a>
+        <a href="blend.html">Blend</a>
       </nav>
     </aside>
 
     <!-- Main Content -->
-    <main>
+    <div class="main-content">
       <h2>Recently Played</h2>
       <div id="recentlyPlayedContainer" class="recently-played-grid"></div>
     </main>
@@ -107,7 +107,7 @@
         const card = document.createElement("div");
         card.className = "recent-card";
         card.innerHTML = `
-          <img src="${track.url?.replace('songs/', 'images/').replace('.mp3', '.jpeg') || 'images/default.jpeg'}" alt="${track.title}" class="recent-img" />
+          <img src="${track.image || 'images/default.jpeg'}" alt="${track.title}" class="recent-img" />
           <div class="track-info">
             <h3>${track.title}</h3>
             <p>${track.artist}</p>
