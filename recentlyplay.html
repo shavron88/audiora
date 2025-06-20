@@ -4,109 +4,130 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Audiora</title>
-  <link rel="stylesheet" href="index.css"/>
-  <script src="index.js" defer></script>
+  <link rel="stylesheet" href="recentlyplay.css"/>
   <link rel="icon" href="images/logo.png" type="image/x-icon">
 </head>
 <body>
-<!-- Header -->
+  <!-- Header -->
   <header class="navbar">
-  <div class="logo">
-    <a href="index.html"><img src="images/logo.png" alt="Logo" /></a>
-    <h1>Audiora</h1>
-  </div>
-
-  <div class="nav-center">
-    <div class="search-container">
-     <input type="text" id="searchInput" placeholder="Search..." />
-    <button class="search-icon" id="searchBtn"></button>
+    <div class="logo">
+      <a href="index.html"><img src="images/audiora-.png" alt="Logo" /></a>
+      <h1>Audiora</h1>
     </div>
-  </div>
-  <div class="nav-right">
-    <a href="login.html"><button class="login-btn" onclick="toggleModal()">Login</button></a>
-  </div>
-</header>
 
-<div class="app">
+    <div class="nav-center">
+      <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search..." />
+        <button class="search-icon" id="searchBtn"></button>
+      </div>
+    </div>
+
+    <div class="nav-right">
+      <a href="login.html"><button class="login-btn" onclick="toggleModal()">Login</button></a>
+    </div>
+  </header>
+
+  <div class="app">
     <!-- Sidebar -->
     <aside class="sidebar">
       <div class="profile-info">
-       <div class="profile-pic-wrapper">
-       <img src="assets/user.png" alt="User" class="profile-pic" id="profileImage" />
-      </div>
-      <h2 id="displayName">Welcome, User</h2>
-       <div class="genres" id="userGenres"></div>
+        <div class="profile-pic-wrapper">
+          <img src="assets/user.png" alt="User" class="profile-pic" id="profileImage" />
+        </div>
+        <h2 id="displayName">Welcome, User</h2>
+        <div class="genres" id="userGenres"></div>
       </div>
       <nav>
-        <a href="index.html">Home</a>
-        <a href="recentlyplay.html" class="active">Recently Played</a>
-        <a href="fav.html">Favorites</a>
-        <a href="playlist.html">My Playlists</a>
-        <a href="profile.html">Profile</a>
-        <a href="blend.html">Blend</a>
+        <a href="#" onclick="loadPage('index.html')">Home</a>
+        <a href="#" class="active">Recently Played</a>
+        <a href="#" onclick="loadPage('fav.html')">Favorites</a>
+        <a href="#" onclick="loadPage('playlist.html')">My Playlists</a>
+        <a href="#" onclick="loadPage('profile.html')">Profile</a>
+        <a href="#" onclick="loadPage('blend.html')">Blend</a>
       </nav>
     </aside>
 
     <!-- Main Content -->
-    <main class="main-content">
+    <main>
       <h2>Recently Played</h2>
-      <div class="track">
-       <img src="images/song1.jpg" alt="Song 1" class="track-img" />
-       <div class="track-info">
-       <h4>Example Song 1</h4>
-       <p>Artist Name</p>
-      </div>
-      </div>
+      <div id="recentlyPlayedContainer" class="recently-played-grid"></div>
     </main>
   </div>
 
+  <!-- Player Controls -->
+  <div class="player">
+    <div class="controls-row">
+      <button onclick="prevTrack()">⏮️</button>
+      <button onclick="togglePlayPause()" id="playPauseBtn">▶️</button>
+      <button onclick="nextTrack()">⏭️</button>
 
-      <!-- Audio Player -->
-    <div class="player">
-      <audio id="audioPlayer" controls></audio>
-      <button onclick="toggleLoop()">🔁</button>
-      <div id="soundbar"></div>
+      <div class="volume-container">
+        <span class="volume-icon">🔊</span>
+        <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1" oninput="changeVolume()" />
+      </div>
     </div>
 
+    <div class="progress-row">
+      <span id="currentTime">0:00</span>
+      <input type="range" id="progressBar" value="0" min="0" max="100" step="0.1" oninput="seekTrack()">
+      <span id="totalTime">0:00</span>
+    </div>
+
+    <audio id="audioPlayer" ontimeupdate="updateProgress()" onloadedmetadata="setDuration()"></audio>
+  </div>
+
+  <!-- JS: User Info + Recently Played Render -->
   <script>
-    const genres = JSON.parse(localStorage.getItem("userGenres") || "[]");
-    const container = document.getElementById("userGenres");
-    genres.forEach(g => {
-      const span = document.createElement("span");
-      span.textContent = g;
-      container.appendChild(span);
-    });
-
-    function playSong(url) {
-      const audio = document.getElementById("audioPlayer");
-      audio.src = url;
-      audio.play();
-    }
-
-    function toggleLike(e) {
-      e.stopPropagation();
-      e.target.textContent = e.target.textContent === "❤️" ? "💔" : "❤️";
-    }
-
-    function saveToPlaylist(e) {
-      e.stopPropagation();
-      alert("Saved to playlist!");
-    }
-
-    function toggleLoop() {
-      const audio = document.getElementById("audioPlayer");
-      audio.loop = !audio.loop;
-      alert("Loop " + (audio.loop ? "enabled" : "disabled"));
-    }
-
     const userName = localStorage.getItem("displayName") || "User";
     const userImg = localStorage.getItem("profileImage");
-
     const nameElement = document.getElementById("displayName");
     if (nameElement) nameElement.innerText = `Welcome, ${userName}`;
-
     const imgElement = document.getElementById("profileImage");
     if (imgElement && userImg) imgElement.src = userImg;
+
+    const genres = JSON.parse(localStorage.getItem("userGenres") || "[]");
+    const genreContainer = document.getElementById("userGenres");
+    genres.forEach(genre => {
+      const span = document.createElement("span");
+      span.textContent = genre;
+      genreContainer.appendChild(span);
+    });
+
+    function renderRecentlyPlayed() {
+      const container = document.getElementById("recentlyPlayedContainer");
+      const recent = JSON.parse(localStorage.getItem("recentlyPlayed") || "[]");
+
+      if (!recent.length) {
+        container.innerHTML = "<p>No recently played tracks.</p>";
+        return;
+      }
+
+      container.innerHTML = "";
+      recent.forEach(track => {
+        const card = document.createElement("div");
+        card.className = "recent-card";
+        card.innerHTML = `
+          <img src="${track.url?.replace('songs/', 'images/').replace('.mp3', '.jpeg') || 'images/default.jpeg'}" alt="${track.title}" class="recent-img" />
+          <div class="track-info">
+            <h3>${track.title}</h3>
+            <p>${track.artist}</p>
+          </div>
+        `;
+        card.onclick = () => {
+          if (track.type === "local") {
+            playLocalTrack(track.url.replace("songs/", ""));
+          } else if (track.type === "audius") {
+            playAudiusNamed(track.query);
+          }
+        };
+        container.appendChild(card);
+      });
+    }
+
+    renderRecentlyPlayed();
   </script>
+
+  <!-- Your existing JS logic -->
+  <script src="recentlyplay.js" defer></script>
 </body>
 </html>

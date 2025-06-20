@@ -1,30 +1,25 @@
 // ====== Global Variables ======
-let audio;
-let playBtn;
-let progressBar;
-let currentTime;
-let totalTime;
-let volumeSlider;
-
+let audio, playBtn, progressBar, currentTime, totalTime, volumeSlider;
+let fullPlaylist = [];
 let currentTrackIndex = 0;
-let isStreaming = false;
 
-// Local playlist
-const playlist = [
-  { title: "You", artist: "Chase Atlantic", url: "tracks/you.mp3" },
-  { title: "Say", artist: "keshi", url: "tracks/say.mp3" },
-  { title: "Car Crash", artist: "eaJ", url: "tracks/car-crash.mp3" },
-  { title: "Slide", artist: "Chase Atlantic", url: "tracks/slide.mp3" },
-  { title: "Summer", artist: "Wave To Earth", url: "tracks/summer.mp3" },
-  { title: "Mehram", artist: "Arooj Aftab", url: "tracks/mehram.mp3" },
-  { title: "Na Milay", artist: "HAVI", url: "tracks/na-milay.mp3" },
-  { title: "Timeless", artist: "The Weeknd", url: "tracks/timeless.mp3" },
-  { title: "Roop", artist: "NAYEL", url: "tracks/roop.mp3" }
-];
+function waitForSongsToLoad() {
+  return new Promise(resolve => {
+    const check = () => {
+      const cards = document.querySelectorAll(".song-card");
+      if (cards.length > 0) {
+        resolve();
+      } else {
+        setTimeout(check, 100);
+      }
+    };
+    check();
+  });
+}
 
-// ====== DOMContentLoaded: Initialize after DOM is ready ======
+// ====== DOM Ready ======
 document.addEventListener("DOMContentLoaded", () => {
-  // Get DOM elements
+  // DOM References
   audio = document.getElementById("audioPlayer");
   playBtn = document.getElementById("playPauseBtn");
   progressBar = document.getElementById("progressBar");
@@ -32,60 +27,61 @@ document.addEventListener("DOMContentLoaded", () => {
   totalTime = document.getElementById("totalTime");
   volumeSlider = document.getElementById("volumeSlider");
 
-  // Load user profile
+  const storedTrack = JSON.parse(localStorage.getItem("currentTrack"));
+  const storedIndex = Number(localStorage.getItem("currentTrackIndex"));
+  if (storedTrack) {
+    fullPlaylist = getFullPlaylist();
+    currentTrackIndex = storedIndex || 0;
+    playTrack(currentTrackIndex);
+  }
+  // Load user profile and playlist
   loadUserProfile();
+  waitForSongsToLoad().then(() => {
+    fullPlaylist = getFullPlaylist();
+    if (fullPlaylist.length > 0) {
+      loadTrack(currentTrackIndex);
+    }
+  });
 
-  // Load first track
-  loadTrack(currentTrackIndex);
-
-  // Event Listeners
+  // Events
   audio.addEventListener("timeupdate", updateProgress);
   audio.addEventListener("loadedmetadata", setDuration);
   audio.addEventListener("ended", nextTrack);
   progressBar.addEventListener("input", seekTrack);
-  volumeSlider.addEventListener("input", changeVolume);
+  volumeSlider.addEventListener("input", () => audio.volume = volumeSlider.value);
 
   document.getElementById("searchBtn").addEventListener("click", handleSearch);
   document.getElementById("searchInput").addEventListener("input", resetSearch);
 
-  // Expose controls to global scope
+  // Expose controls globally
   window.togglePlayPause = togglePlayPause;
   window.nextTrack = nextTrack;
   window.prevTrack = prevTrack;
-  window.playAudiusTrack = playAudiusTrack;
+  window.playLocalTrack = playLocalTrack;
+  window.playDieWithaSmile = () => playAudiusNamed("Die With a Smile Lady Gaga Bruno Mars");
+  window.playBirdsOfaFeather = () => playAudiusNamed("Birds of a feather Billie Eilish");
+  window.playHereWithMe = () => playAudiusNamed("Here With Me d4vd");
+  window.playDoubt = () => playAudiusNamed("Doubt Twenty One Pilots");
 });
 
-// ====== User Info Load ======
+// ====== User Profile Loader ======
 function loadUserProfile() {
   const genres = JSON.parse(localStorage.getItem("userGenres") || "[]");
-  const container = document.getElementById("userGenres");
+  const name = localStorage.getItem("displayName") || "User";
+  const img = localStorage.getItem("profileImage");
+
+  document.getElementById("displayName").innerText = `Welcome, ${name}`;
+  if (img) document.getElementById("profileImage").src = img;
+
+  const genreContainer = document.getElementById("userGenres");
   genres.forEach(g => {
     const span = document.createElement("span");
     span.textContent = g;
-    container.appendChild(span);
+    genreContainer.appendChild(span);
   });
-
-  const userName = localStorage.getItem("displayName") || "User";
-  const userImg = localStorage.getItem("profileImage");
-
-  const nameElement = document.getElementById("displayName");
-  if (nameElement) nameElement.innerText = `Welcome, ${userName}`;
-
-  const imgElement = document.getElementById("profileImage");
-  if (imgElement && userImg) imgElement.src = userImg;
 }
 
-// ====== Player Controls ======
-function loadTrack(index) {
-  isStreaming = false;
-  if (index >= 0 && index < playlist.length) {
-    const track = playlist[index];
-    audio.src = track.url;
-    audio.play();
-    playBtn.textContent = "⏸️";
-  }
-}
-
+// ====== Playback Logic ======
 function togglePlayPause() {
   if (audio.paused) {
     audio.play();
@@ -97,21 +93,25 @@ function togglePlayPause() {
 }
 
 function nextTrack() {
-  if (isStreaming) return;
-  currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
-  loadTrack(currentTrackIndex);
+  if (!fullPlaylist.length) return;
+  currentTrackIndex = (currentTrackIndex + 1) % fullPlaylist.length;
+  playTrack(currentTrackIndex);
 }
 
 function prevTrack() {
-  if (isStreaming) return;
-  currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
-  loadTrack(currentTrackIndex);
+  if (!fullPlaylist.length) return;
+  currentTrackIndex = (currentTrackIndex - 1 + fullPlaylist.length) % fullPlaylist.length;
+  playTrack(currentTrackIndex);
+}
+
+function loadTrack(index) {
+  fullPlaylist = getFullPlaylist();
+  playTrack(index);
 }
 
 function updateProgress() {
   if (audio.duration) {
-    const value = (audio.currentTime / audio.duration) * 100;
-    progressBar.value = value;
+    progressBar.value = (audio.currentTime / audio.duration) * 100;
     currentTime.textContent = formatTime(audio.currentTime);
   }
 }
@@ -123,110 +123,154 @@ function seekTrack() {
 }
 
 function setDuration() {
-  if (audio.duration) {
-    totalTime.textContent = formatTime(audio.duration);
-  }
-}
-
-function changeVolume() {
-  audio.volume = volumeSlider.value;
+  totalTime.textContent = formatTime(audio.duration);
 }
 
 function formatTime(time) {
-  const minutes = Math.floor(time / 60);
-  const seconds = Math.floor(time % 60);
-  return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  const min = Math.floor(time / 60);
+  const sec = Math.floor(time % 60).toString().padStart(2, "0");
+  return `${min}:${sec}`;
 }
 
-// ====== Audius Integration ======
-async function playAudiusTrack() {
+// ====== Play a Local Track ======
+function playLocalTrack(filename) {
+  fullPlaylist = getFullPlaylist();
+  const url = `songs/${filename}`;
+  const foundIndex = fullPlaylist.findIndex(track => track.url === url);
+  if (foundIndex === -1) {
+    alert(`Track ${filename} not found in playlist.`);
+    return;
+  }
+  currentTrackIndex = foundIndex;
+  playTrack(currentTrackIndex);
+}
+// ====== Play query ======
+async function playAudiusNamed(query) {
+  fullPlaylist = getFullPlaylist();
+  const lowerQuery = query.toLowerCase();
+  const index = fullPlaylist.findIndex(track =>
+    track.type === "audius" && track.query?.toLowerCase() === lowerQuery
+  );
+
+  if (index === -1) {
+    alert(`No matching track found for "${query}"`);
+    return;
+  }
+
+  currentTrackIndex = index;
+  playTrack(currentTrackIndex);
+}
+
+// ====== Play Track (Local or Audius) ======
+async function playTrack(index) {
+  const track = fullPlaylist[index];
+  if (!track || (!track.url && !track.query)) return;
+console.log("Searching Audius for:", track.query);
+
+  currentTrackIndex = index;
+
   try {
-    const hostRes = await fetch('https://api.audius.co');
-    const hostData = await hostRes.json();
-    const host = hostData.data[0];
+    if (track.type === "local") {
+      audio.src = track.url;
+      await audio.play();
+    } else if (track.type === "audius") {
+      const host = await getAudiusHost();
+      const res = await fetch(`${host}/v1/tracks/search?query=${encodeURIComponent(track.query)}`);
+      const { data } = await res.json();
+      if (!data.length) return alert(`No track found for "${track.query}"`);
+      const stream = await fetch(`${host}/v1/tracks/${data[0].id}/stream?app_name=Audiora`);
+      audio.src = stream.url;
+      await audio.play();
+    }
 
-    const res = await fetch(`${host}/v1/tracks/search?query=${encodeURIComponent('Chase Atlantic')}`);
-    const { data } = await res.json();
-    const track = data[0];
 
-    if (!track) return alert('No track found.');
+    localStorage.setItem("currentTrack", JSON.stringify(track));
+    localStorage.setItem("currentTrackIndex", currentTrackIndex);
 
-    const streamRes = await fetch(`${host}/v1/tracks/${track.id}/stream?app_name=Audiora`);
-    const streamUrl = streamRes.url;
-
-    isStreaming = true;
-    audio.src = streamUrl;
-    await audio.play();
     playBtn.textContent = "⏸️";
-    alert(`Now playing: "${track.title}" by ${track.user.name}`);
+        addToRecentlyPlayed(track);
+
   } catch (err) {
     console.error(err);
-    alert('Error playing Audius track.');
+    alert("Failed to play track.");
   }
 }
-async function playDieWithASmile() {
-  const host = await getAudiusHost();
-  const res = await fetch(`${host}/v1/tracks/search?query=${encodeURIComponent('Die With A Smile Lady Gaga Bruno Mars')}`);
-  const { data } = await res.json();
 
-  if (!data.length) {
-    alert('No Audius track found for "Die With a Smile".');
-    return;
-  }
-}
-  async function backtofriends() {
-  const host = await getAudiusHost();
-  const res = await fetch(`${host}/v1/tracks/search?query=${encodeURIComponent('thats so')}`);
-  const { data } = await res.json();
-
-  if (!data.length) {
-    alert('No Audius track found for "Back To Friends".');
-    return;
-  }
-
-  const track = data[0];
-  const streamRes = await fetch(`${host}/v1/tracks/${track.id}/stream?app_name=Audiora`);
-  
-  audio.src = streamRes.url;
-  await audio.play();
-  playBtn.textContent = "⏸️";
-  alert(`Now playing: "${track.title}" by ${track.user.name}`);
+    //  Add track to Recently Played //
+function addToRecentlyPlayed(track) {
+  const recent = JSON.parse(localStorage.getItem("recentlyPlayed") || "[]");
+  const updated = [track, ...recent.filter(t =>
+    t.title !== track.title || t.artist !== track.artist
+  )];
+  localStorage.setItem("recentlyPlayed", JSON.stringify(updated.slice(0, 15)));
 }
 
-// ====== Search Functionality ======
+// ====== Get Playlist from DOM ======
+function getFullPlaylist() {
+  return Array.from(document.querySelectorAll(".song-card")).map(card => {
+    const onclick = card.querySelector("button")?.getAttribute("onclick") || "";
+    const title = card.querySelector(".song-title")?.innerText || "";
+    const artist = card.querySelector(".artist-name")?.innerText || "";
+    const img = card.querySelector("img")?.getAttribute("src") || "";
+
+    if (onclick.includes("playLocalTrack")) {
+      const match = onclick.match(/playLocalTrack\('(.+?)'\)/);
+      return match ? { type: "local", url: `songs/${match[1]}`, title, artist, image: img } : null;
+    }
+
+    // Match all Audius-based dynamic queries
+    const audiusMatch = onclick.match(/playAudiusNamed\(['"](.+?)['"]\)/);
+    if (audiusMatch) {
+      return {
+        type: "audius",
+        query: audiusMatch[1],
+        title,
+        artist,
+        image: img
+      };
+    }
+
+    return null;
+  }).filter(Boolean);
+}
+
+
+// ====== Audius API ======
+async function getAudiusHost() {
+  const res = await fetch("https://api.audius.co");
+  const json = await res.json();
+  return json.data[0];
+}
+
+// ====== Search ======
 function handleSearch() {
   const query = document.getElementById("searchInput").value.toLowerCase().trim();
-  const allSections = document.querySelectorAll("section");
-  const allCards = document.querySelectorAll(".song-card");
+  const cards = document.querySelectorAll(".song-card");
+  const sections = document.querySelectorAll("section");
 
-  let matchFound = false;
+  let found = false;
+  sections.forEach(sec => sec.style.display = "none");
 
-  allSections.forEach(section => section.style.display = "none");
-
-  allCards.forEach(card => {
-    const title = card.querySelector(".song-title")?.textContent.toLowerCase() || '';
-    const artist = card.querySelector(".artist-name")?.textContent.toLowerCase() || '';
+  cards.forEach(card => {
+    const title = card.querySelector(".song-title")?.innerText.toLowerCase() || "";
+    const artist = card.querySelector(".artist-name")?.innerText.toLowerCase() || "";
 
     if (title.includes(query) || artist.includes(query)) {
       card.style.display = "flex";
-      card.closest("section").style.display = "block"; // Show parent section
-      matchFound = true;
+      card.closest("section").style.display = "block";
+      found = true;
     } else {
       card.style.display = "none";
     }
   });
 
-  if (!matchFound) alert("No results found.");
+  if (!found) alert("No results found.");
 }
 
-
 function resetSearch() {
-  const value = document.getElementById("searchInput").value.trim();
-  const allSections = document.querySelectorAll("section");
-  const allCards = document.querySelectorAll(".song-card");
-
-  if (value === "") {
-    allSections.forEach(section => section.style.display = "block");
-    allCards.forEach(card => card.style.display = "flex");
+  const val = document.getElementById("searchInput").value.trim();
+  if (val === "") {
+    document.querySelectorAll("section").forEach(s => s.style.display = "block");
+    document.querySelectorAll(".song-card").forEach(c => c.style.display = "flex");
   }
 }
