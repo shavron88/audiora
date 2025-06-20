@@ -183,6 +183,7 @@ async function playTrack(index, showError = true)
     if (track.type === "local") {
       audio.src = track.url;
       await audio.play();
+      playBtn.textContent = "⏸️";
     } else if (track.type === "audius") {
       const host = await getAudiusHost();
       const res = await fetch(`${host}/v1/tracks/search?query=${encodeURIComponent(track.query)}`);
@@ -193,16 +194,18 @@ async function playTrack(index, showError = true)
       await audio.play();
     }
 
-    localStorage.setItem("currentTrack", JSON.stringify(track));
-    localStorage.setItem("currentTrackIndex", currentTrackIndex);
-    playBtn.textContent = "⏸️";
-    addToRecentlyPlayed(track);
+    //  Info (title + artist)
+    const nowTitle = document.getElementById("nowTitle");
+    const nowArtist = document.getElementById("nowArtist");
+    if (nowTitle && nowArtist) {
+      nowTitle.textContent = track.title || "Unknown Title";
+      nowArtist.textContent = track.artist || "Unknown Artist";
+    }
 
-    } catch (err) {
+  } catch (err) {
     console.error(err);
     if (showError) alert("Failed to play track.");
   }
-
 }
 
 // ====== Add track to Recently Played ======

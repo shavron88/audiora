@@ -415,6 +415,14 @@ section {
   width: 80%;
 }
 
+.now-playing-info {
+  color: #fff;
+  font-size: 14px;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+
 #progressBar {
   flex: 1;
   height: 6px;

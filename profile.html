@@ -1,31 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script src="https://e-cdns-files.dzcdn.net/js/min/dz.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Audiora - Profile</title>
-  <link rel="stylesheet" href="profile.css" />
-  
+  <title>Audiora</title>
+  <link rel="stylesheet" href="playlist.css"/>
+  <link rel="icon" href="images/logo.png" type="image/x-icon">
 </head>
 <body>
-  <div class="profile-container">
+<!-- Header -->
+  <header class="navbar">
+  <div class="logo">
+    <a href="#" onclick="loadPage('index.html')"><img src="images/audiora-.png" alt="Logo" /></a>
+    <h1>Audiora</h1>
+  </div>
+
+  <div class="nav-center">
+    <div class="search-container">
+     <input type="text" id="searchInput" placeholder="Search..." />
+    <button class="search-icon" id="searchBtn"></button>
+    </div>
+  </div>
+  <div class="nav-right">
+    <a href="login.html"><button class="login-btn" onclick="toggleModal()">Login</button></a>
+  </div>
+</header>
+
+<div class="app">
+    <!-- Sidebar -->
     <aside class="sidebar">
       <div class="profile-info">
-        <img src="assets/user.png" alt="User" class="profile-pic" id="profileImage" />
-        <h2 id="displayName">Welcome, User</h2>
-        <h4>Your Music holds your Aura</h4>
-        <div class="genres" id="userGenres">
-          <!-- Genres from localStorage -->
-        </div>
+       <div class="profile-pic-wrapper">
+       <img src="assets/user.png" alt="User" class="profile-pic" id="profileImage" />
+      </div>
+      <h2 id="displayName">Welcome, User</h2>
+       <div class="genres" id="userGenres"></div>
       </div>
       <nav>
-        <a href="index.html">🏠 Home</a>
-        <a href="fav.html">❤️ Favorites</a>
-        <a href="playlist.html">🎶 My Playlists</a>
-        <a href="blend.html">🔗 My Blend</a>
-        <a href="categories.html">🎧 Genres</a>
+        <a href="index.html">Home</a>
+        <a href="recentlyplay.html">Recently Played</a>
+        <a href="fav.html">Favorites</a>
+        <a href="playlist.html">My Playlists</a>
+        <a href="profile.html" class="active">Profile</a>
+        <a href="blend.html">Blend</a>
+        <a href="categories.html">Categories</a>
       </nav>
+
     </aside>
+  
 
     <main class="profile-main">
       <h1>Profile Overview</h1>
@@ -111,5 +134,25 @@
       window.location.href = "login.html";
     }
   </script>
+    <!-- Player Controls -->
+  <div class="player">
+    <div class="controls-row">
+      <button onclick="prevTrack()">⏮️</button>
+      <button onclick="togglePlayPause()" id="playPauseBtn">▶️</button>
+      <button onclick="nextTrack()">⏭️</button>
+
+      <div class="volume-container">
+        <span class="volume-icon">🔊</span>
+        <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1" oninput="changeVolume()" />
+      </div>
+    </div>
+    <div class="progress-row">
+      <span id="currentTime">0:00</span>
+      <input type="range" id="progressBar" value="0" min="0" max="100" step="0.1" oninput="seekTrack()">
+      <span id="totalTime">0:00</span>
+    </div>
+    <audio id="audioPlayer" ontimeupdate="updateProgress()" onloadedmetadata="setDuration()"></audio>
+  </div>
+
 </body>
 </html>
