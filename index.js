@@ -204,6 +204,8 @@ async function playTrack(index, showError = true)
       nowArtist.textContent = track.artist || "Unknown Artist";
     }
 
+    addToRecentlyPlayed(track);
+
   } catch (err) {
     console.error(err);
     if (showError) alert("Failed to play track.");

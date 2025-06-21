@@ -105,3 +105,9 @@ function playLocalTrack(filename) {
 function playAudiusNamed(query) {
   alert(`Should play from Audius: ${query}`);
 }
+
+window.addEventListener("storage", event => {
+  if (event.key === "recentlyPlayed") {
+    renderRecentlyPlayed();
+  }
+});
