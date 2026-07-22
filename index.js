@@ -29,42 +29,50 @@ document.addEventListener("DOMContentLoaded", () => {
 
   loadUserProfile();
 
-waitForSongsToLoad().then(() => {
-  fullPlaylist = getFullPlaylist();
-  const storedTrack = JSON.parse(localStorage.getItem("currentTrack"));
-  const storedIndex = Number(localStorage.getItem("currentTrackIndex"));
+  waitForSongsToLoad().then(() => {
+    fullPlaylist = getFullPlaylist();
+    const storedTrack = JSON.parse(localStorage.getItem("currentTrack"));
+    const storedIndex = Number(localStorage.getItem("currentTrackIndex"));
 
-  if (storedTrack && fullPlaylist.length > 0) {
-      currentTrackIndex = storedIndex || 0;
-      const track = fullPlaylist[currentTrackIndex];
+    if (storedTrack && fullPlaylist.length > 0) {
+        currentTrackIndex = storedIndex || 0;
+        const track = fullPlaylist[currentTrackIndex];
 
-      if (track.type === "local") {
-        audio.src = track.url;
-      } else if (track.type === "audius") {
-        getAudiusHost().then(async host => {
-          const res = await fetch(`${host}/v1/tracks/search?query=${encodeURIComponent(track.query)}`);
-          const { data } = await res.json();
-          if (data.length) {
-            const stream = await fetch(`${host}/v1/tracks/${data[0].id}/stream?app_name=Audiora`);
-            audio.src = stream.url;
-          }
+        if (track.type === "local") {
+          audio.src = track.url;
+        } else if (track.type === "audius") {
+          getAudiusHost().then(async host => {
+            const res = await fetch(`${host}/v1/tracks/search?query=${encodeURIComponent(track.query)}`);
+            const { data } = await res.json();
+            if (data.length) {
+              const stream = await fetch(`${host}/v1/tracks/${data[0].id}/stream?app_name=Audiora`);
+              audio.src = stream.url;
+            }
+          });
+        }
+    // Update player UI
+        playBtn.textContent = "▶️";
+        audio.addEventListener("loadedmetadata", () => {
+          totalTime.textContent = formatTime(audio.duration || 0);
         });
       }
-// Update player UI
-      playBtn.textContent = "▶️";
-      audio.addEventListener("loadedmetadata", () => {
-        totalTime.textContent = formatTime(audio.duration || 0);
-      });
-    }
-  });
+    });
 
 
-  // Events
-  audio.addEventListener("timeupdate", updateProgress);
-  audio.addEventListener("loadedmetadata", setDuration);
-  audio.addEventListener("ended", nextTrack);
-  progressBar.addEventListener("input", seekTrack);
-  volumeSlider.addEventListener("input", () => audio.volume = volumeSlider.value);
+    // Events
+    audio.addEventListener("timeupdate", updateProgress);
+    audio.addEventListener("loadedmetadata", setDuration);
+    audio.addEventListener("ended", nextTrack);
+    audio.addEventListener("play", () => {
+      const player = document.querySelector('.player');
+      if (player) player.classList.add('active');
+    });
+    audio.addEventListener("pause", () => {
+      const player = document.querySelector('.player');
+      if (player) player.classList.remove('active');
+    });
+    progressBar.addEventListener("input", seekTrack);
+    volumeSlider.addEventListener("input", () => audio.volume = volumeSlider.value);
 
   document.getElementById("searchBtn").addEventListener("click", handleSearch);
   document.getElementById("searchInput").addEventListener("input", resetSearch);
@@ -79,6 +87,18 @@ waitForSongsToLoad().then(() => {
   window.playBirdsOfaFeather = () => playAudiusNamed("Birds of a feather Billie Eilish");
   window.playHereWithMe = () => playAudiusNamed("Here With Me d4vd");
   window.playDoubt = () => playAudiusNamed("Doubt Twenty One Pilots");
+
+  document.querySelectorAll('.scroll-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const container = btn.parentElement.querySelector('.songs-grid, .playlist-row');
+      if (container) {
+        const scrollAmount = 200;
+        btn.classList.contains('next-btn')
+          ? container.scrollBy({ left: scrollAmount, behavior: 'smooth' })
+          : container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+      }
+    });
+  });
 });
 
 // ====== User Profile Loader ======
@@ -141,6 +161,10 @@ function seekTrack() {
 
 function setDuration() {
   totalTime.textContent = formatTime(audio.duration);
+}
+
+function changeVolume() {
+  if (volumeSlider) audio.volume = volumeSlider.value;
 }
 
 function formatTime(time) {

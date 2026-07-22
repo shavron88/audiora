@@ -54,227 +54,250 @@
     <main class="main-content">
       <section class="recently-played">
         <h2>Recently played Artists</h2>
-        <div class="playlist-row">
-          <div class="playlist-card">
-            <div class="artist-overlay"><h3>Chase Atlantic</h3></div>
-            <img src="images/ca.jpeg" alt="Chase Atlantic" class="artist-img" />
+        <div class="section-scroll">
+          <div class="playlist-row">
+            <div class="playlist-card">
+              <div class="artist-overlay"><h3>Chase Atlantic</h3></div>
+              <img src="images/ca.jpeg" alt="Chase Atlantic" class="artist-img" />
+            </div>
+            <div class="playlist-card">
+              <div class="artist-overlay"><h3>keshi</h3></div>
+              <img src="images/keshi.jpeg" alt="keshi" class="artist-img" />
+            </div>
+            <div class="playlist-card">
+              <div class="artist-overlay"><h3>HAVI</h3></div>
+              <img src="images/havi.jpeg" alt="HAVI" class="artist-img" />
+            </div>
+            <div class="playlist-card">
+              <div class="artist-overlay"><h3>eaJ</h3></div>
+              <img src="images/eaj.jpeg" alt="eaJ" class="artist-img" />
+            </div>
+            <div class="playlist-card">
+              <div class="artist-overlay"><h3>I.M</h3></div>
+              <img src="images/i.jpeg" alt="I.M" class="artist-img" />
+            </div>
+            <div class="playlist-card">
+              <div class="artist-overlay"><h3>Conan Gray</h3></div>
+              <img src="images/gray.jpeg" alt="Conan Gray" class="artist-img" />
+            </div>
+            <div class="playlist-card">
+              <div class="artist-overlay"><h3>brb.</h3></div>
+              <img src="images/brb..jpeg" alt="brb." class="artist-img" />
+            </div>
           </div>
-          <div class="playlist-card">
-            <div class="artist-overlay"><h3>keshi</h3></div>
-            <img src="images/keshi.jpeg" alt="keshi" class="artist-img" />
-          </div>
-          <div class="playlist-card">
-            <div class="artist-overlay"><h3>HAVI</h3></div>
-            <img src="images/havi.jpeg" alt="HAVI" class="artist-img" />
-          </div>
-          <div class="playlist-card">
-            <div class="artist-overlay"><h3>eaJ</h3></div>
-            <img src="images/eaj.jpeg" alt="eaJ" class="artist-img" />
-          </div>
-          <div class="playlist-card">
-            <div class="artist-overlay"><h3>I.M</h3></div>
-            <img src="images/i.jpeg" alt="I.M" class="artist-img" />
-          </div>
-          <div class="playlist-card">
-            <div class="artist-overlay"><h3>Conan Gray</h3></div>
-            <img src="images/gray.jpeg" alt="Conan Gray" class="artist-img" />
-          </div>
-          <div class="playlist-card">
-            <div class="artist-overlay"><h3>brb.</h3></div>
-            <img src="images/brb..jpeg" alt="brb." class="artist-img" />
-          </div>
+          <button class="scroll-btn prev-btn" aria-label="Scroll left">&#8249;</button>
+          <button class="scroll-btn next-btn" aria-label="Scroll right">&#8250;</button>
         </div>
       </section>
 
       <section class="jump-back" id="jumpBackSection">
         <h2>Jump back in</h2>
-        <div class="songs-grid" id="jumpBackSongs">
-          <div class="song-card" onclick="playLocalTrack('you.mp3')">
-            <img src="images/You.jpeg" alt="You" />
-            <h3 class="song-title">You</h3>
-            <p class="artist-name">-Chase Atlantic</p>
+        <div class="section-scroll">
+          <div class="songs-grid" id="jumpBackSongs">
+            <div class="song-card" onclick="playLocalTrack('you.mp3')">
+              <img src="images/You.jpeg" alt="You" />
+              <h3 class="song-title">You</h3>
+              <p class="artist-name">-Chase Atlantic</p>
+            </div>
+            <div class="song-card" onclick="playLocalTrack('Say.mp3')">
+              <img src="images/say.jpeg" alt="Say" />
+              <h3 class="song-title">Say</h3>
+              <p class="artist-name">-keshi</p>
+            </div>
+            <div class="song-card" onclick="playLocalTrack('car crash.mp3')">
+              <img src="images/car crash.jpeg" alt="Car Crash" />
+              <h3 class="song-title">Car Crash</h3>
+              <p class="artist-name">-eaJ</p>
+            </div>
+            <div class="song-card" onclick="playLocalTrack('slide.mp3')">
+              <img src="images/slide.jpeg" alt="Slide" />
+              <h3 class="song-title">Slide</h3>
+              <p class="artist-name">-Chase Atlantic</p>
+            </div>
+            <div class="song-card" onclick="playLocalTrack('seasons.mp3')">
+              <img src="images/summer.jpeg" alt="Seasons" />
+              <h3 class="song-title">Seasons</h3>
+              <p class="artist-name">-Wave To Earth</p>
+            </div>
+            <div class="song-card" onclick="playLocalTrack('Mehram.mp3')">
+              <img src="images/mehram.jpeg" alt="Mehram" />
+              <h3 class="song-title">Mehram</h3>
+              <p class="artist-name">-Arooj Aftab</p>
+            </div>
+            <div class="song-card" onclick="playLocalTrack('Na Milay.mp3')">
+              <img src="images/na milay.jpeg" alt="Na Milay" />
+              <h3 class="song-title">Na Milay</h3>
+              <p class="artist-name">-HAVI</p>
+            </div>
           </div>
-          <div class="song-card" onclick="playLocalTrack('Say.mp3')">
-            <img src="images/say.jpeg" alt="Say" />
-            <h3 class="song-title">Say</h3>
-            <p class="artist-name">-keshi</p>
-          </div>
-          <div class="song-card" onclick="playLocalTrack('car crash.mp3')">
-            <img src="images/car crash.jpeg" alt="Car Crash" />
-            <h3 class="song-title">Car Crash</h3>
-            <p class="artist-name">-eaJ</p>
-          </div>
-          <div class="song-card" onclick="playLocalTrack('slide.mp3')">
-            <img src="images/slide.jpeg" alt="Slide" />
-            <h3 class="song-title">Slide</h3>
-            <p class="artist-name">-Chase Atlantic</p>
-          </div>
-          <div class="song-card" onclick="playLocalTrack('seasons.mp3')">
-            <img src="images/summer.jpeg" alt="Seasons" />
-            <h3 class="song-title">Seasons</h3>
-            <p class="artist-name">-Wave To Earth</p>
-          </div>
-          <div class="song-card" onclick="playLocalTrack('Mehram.mp3')">
-            <img src="images/mehram.jpeg" alt="Mehram" />
-            <h3 class="song-title">Mehram</h3>
-            <p class="artist-name">-Arooj Aftab</p>
-          </div>
-          <div class="song-card" onclick="playLocalTrack('Na Milay.mp3')">
-            <img src="images/na milay.jpeg" alt="Na Milay" />
-            <h3 class="song-title">Na Milay</h3>
-            <p class="artist-name">-HAVI</p>
-          </div>
-          </div>
-         </section>
+          <button class="scroll-btn prev-btn" aria-label="Scroll left">&#8249;</button>
+          <button class="scroll-btn next-btn" aria-label="Scroll right">&#8250;</button>
+        </div>
+      </section>
 
           <section class="trending-now" id="trendingSection">
         <h2>Trending Now</h2>
-        <div class="songs-grid" id="trendingSongs">
-          <div class="song-card" onclick="playLocalTrack('Timeless.mp3')">
-            <img src="images/timeless.jpeg" alt="Timeless" />
-            <h3 class="song-title">Timeless</h3>
-            <p class="artist-name">-The Weeknd</p>
+        <div class="section-scroll">
+          <div class="songs-grid" id="trendingSongs">
+            <div class="song-card" onclick="playLocalTrack('Timeless.mp3')">
+              <img src="images/timeless.jpeg" alt="Timeless" />
+              <h3 class="song-title">Timeless</h3>
+              <p class="artist-name">-The Weeknd</p>
+            </div>
+            <div class="song-card" onclick="playLocalTrack('Roop.mp3')">
+              <img src="images/roop.jpeg" alt="Roop" />
+              <h3 class="song-title">Roop</h3>
+              <p class="artist-name">-NAYEL</p>
+            </div>
+            <div class="song-card" onclick="playLocalTrack('wildflowers.mp3')">
+              <img src="images/WILDFLOWERS.jpeg" alt="WILDFLOWERS" />
+              <h3 class="song-title">WILDFLOWERS</h3>
+              <p class="artist-name">-Billie Eilish</p>
+            </div>
+            <div class="song-card" onclick="playLocalTrack('palpal.mp3')">
+              <img src="images/palpal.jpeg" alt="Pal Pal" />
+              <h3 class="song-title">Pal Pal</h3>
+              <p class="artist-name">-Afusic</p>
+            </div>
+            <div class="song-card" onclick="playLocalTrack('family line.mp3')">
+              <img src="images/Family Line.jpeg" alt="Family Line" />
+              <h3 class="song-title">Family Line</h3>
+              <p class="artist-name">-Conan Gray</p>
+            </div>
+            <div class="song-card" onclick="playDoubt()">
+              <img src="images/doubt.jpeg" alt="Doubt" />
+              <h3 class="song-title">Doubt</h3>
+              <p class="artist-name">-Twenty One Pilots</p>
+            </div>
+            <div class="song-card" onclick="playLocalTrack('ordinary.mp3')">
+              <img src="images/ordinary.jpeg" alt="Ordinary" />
+              <h3 class="song-title">Ordinary</h3>
+              <p class="artist-name">-Alex Warren</p>
+            </div>
           </div>
-          <div class="song-card" onclick="playLocalTrack('Roop.mp3')">
-            <img src="images/roop.jpeg" alt="Roop" />
-            <h3 class="song-title">Roop</h3>
-            <p class="artist-name">-NAYEL</p>
-          </div>
-          <div class="song-card" onclick="playLocalTrack('wildflowers.mp3')">
-            <img src="images/WILDFLOWERS.jpeg" alt="WILDFLOWERS" />
-            <h3 class="song-title">WILDFLOWERS</h3>
-            <p class="artist-name">-Billie Eilish</p>
-          </div>
-          <div class="song-card" onclick="playLocalTrack('palpal.mp3')">
-            <img src="images/palpal.jpeg" alt="Pal Pal" />
-            <h3 class="song-title">Pal Pal</h3>
-            <p class="artist-name">-Afusic</p>
-          </div>
-          <div class="song-card" onclick="playLocalTrack('family line.mp3')">
-            <img src="images/Family Line.jpeg" alt="Family Line" />
-            <h3 class="song-title">Family Line</h3>
-            <p class="artist-name">-Conan Gray</p>
-          </div>
-          <div class="song-card" onclick="playDoubt()">
-            <img src="images/doubt.jpeg" alt="Doubt" />
-            <h3 class="song-title">Doubt</h3>
-            <p class="artist-name">-Twenty One Pilots</p>
-          </div>
-          <div class="song-card" onclick="playLocalTrack('ordinary.mp3')">
-            <img src="images/ordinary.jpeg" alt="Ordinary" />
-            <h3 class="song-title">Ordinary</h3>
-            <p class="artist-name">-Alex Warren</p>
-          </div>
+          <button class="scroll-btn prev-btn">&lt;</button>
+          <button class="scroll-btn next-btn">&gt;</button>
         </div>
       </section>
 
       <section class="new-releases" id="releasesSection">
         <h2>New Releases</h2>
-         <div class="songs-grid" id="releaseSongs">
-          <div class="song-card" onclick="playLocalTrack('annie.mp3')">
-            <img src="images/annie.jpeg" alt="annie." />
-            <h3 class="song-title">annie.</h3>
-            <p class="artist-name">-Wave To Earth</p>
+        <div class="section-scroll">
+          <div class="songs-grid" id="releaseSongs">
+            <div class="song-card" onclick="playLocalTrack('annie.mp3')">
+              <img src="images/annie.jpeg" alt="annie." />
+              <h3 class="song-title">annie.</h3>
+              <p class="artist-name">-Wave To Earth</p>
+            </div>
+            <div class="song-card" onclick="playLocalTrack('Shinunoga E-Wa.mp3')">
+              <img src="images/Shinunoga e-wa.jpeg" alt="Shinunoga e-wa" />
+              <h3 class="song-title">Shinunoga e-wa</h3>
+              <p class="artist-name">-Fujii Kaze</p>
+            </div>
+            <div class="song-card" onclick="playLocalTrack('Kinaaray.mp3')">
+              <img src="images/kinaaray.jpeg" alt="Kinaaray" />
+              <h3 class="song-title">Kinaaray</h3>
+              <p class="artist-name">-Abdul Hannan</p>
+            </div>
+            <div class="song-card" onclick="playLocalTrack('merry go round.mp3')">
+              <img src="images/merry go round.jpeg" alt="merry go round" />
+              <h3 class="song-title">merry go round</h3>
+              <p class="artist-name">-eaJ</p>
+            </div>
+            <div class="song-card" onclick="playLocalTrack('beautiful liar.mp3')">
+              <img src="images/beautiful liar.jpeg" alt="Beautiful Liar" />
+              <h3 class="song-title">Beautiful Liar</h3>
+              <p class="artist-name">-MONSTA X</p>
+            </div>
+            <div class="song-card" onclick="playLocalTrack('duh!.mp3')">
+              <img src="images/duh!.jpeg" alt="DUH!" />
+              <h3 class="song-title">DUH!</h3>
+              <p class="artist-name">-P1Harmony</p>
+            </div>
+            <div class="song-card" onclick="playLocalTrack('RICOCHET.mp3')">
+              <img src="images/RICOCHET.jpeg" alt="RICOCHET" />
+              <h3 class="song-title">RICOCHET</h3>
+              <p class="artist-name">-Chase Atlantic</p>
+            </div>
           </div>
-          <div class="song-card" onclick="playLocalTrack('Shinunoga E-Wa.mp3')">
-            <img src="images/Shinunoga e-wa.jpeg" alt="Shinunoga e-wa" />
-            <h3 class="song-title">Shinunoga e-wa</h3>
-            <p class="artist-name">-Fujii Kaze</p>
-          </div>
-          <div class="song-card" onclick="playLocalTrack('Kinaaray.mp3')">
-            <img src="images/kinaaray.jpeg" alt="Kinaaray" />
-            <h3 class="song-title">Kinaaray</h3>
-            <p class="artist-name">-Abdul Hannan</p>
-          </div>
-          <div class="song-card" onclick="playLocalTrack('merry go round.mp3')">
-            <img src="images/merry go round.jpeg" alt="merry go round" />
-            <h3 class="song-title">merry go round</h3>
-            <p class="artist-name">-eaJ</p>
-          </div>
-          <div class="song-card" onclick="playLocalTrack('beautiful liar.mp3')">
-            <img src="images/beautiful liar.jpeg" alt="Beautiful Liar" />
-            <h3 class="song-title">Beautiful Liar</h3>
-            <p class="artist-name">-MONSTA X</p>
-          </div>
-          <div class="song-card" onclick="playLocalTrack('duh!.mp3')">
-            <img src="images/duh!.jpeg" alt="DUH!" />
-            <h3 class="song-title">DUH!</h3>
-            <p class="artist-name">-P1Harmony</p>
-          </div>
-          <div class="song-card" onclick="playLocalTrack('RICOCHET.mp3')">
-            <img src="images/RICOCHET.jpeg" alt="RICOCHET" />
-            <h3 class="song-title">RICOCHET</h3>
-            <p class="artist-name">-Chase Atlantic</p>
-          </div>
+          <button class="scroll-btn prev-btn">&lt;</button>
+          <button class="scroll-btn next-btn">&gt;</button>
         </div>
       </section>
 
       <section class="top-charts" id="chartsSection">
         <h2>Top Charts</h2>
-        <div class="songs-grid" id="chartSongs">
-          <div class="song-card" onclick="playDieWithaSmile()">
-           <img src="images/die with a smile.jpeg" alt="Die With A Smile">
-          <p class="song-title">Die With A Smile</p>
-          <p class="artist-name">-Bruno Mars</p>
-        </div>
-          <div class="song-card" onclick="playLocalTrack('back to friends.mp3')">
-            <img src="images/back to friends.jpeg" alt="Back to Friends">
-            <p class="song-title">Back to Friends</p>
-            <p class="artist-name">-Sombr</p>
+        <div class="section-scroll">
+          <div class="songs-grid" id="chartSongs">
+            <div class="song-card" onclick="playDieWithaSmile()">
+             <img src="images/die with a smile.jpeg" alt="Die With A Smile">
+           <p class="song-title">Die With A Smile</p>
+           <p class="artist-name">-Bruno Mars</p>
+         </div>
+            <div class="song-card" onclick="playLocalTrack('back to friends.mp3')">
+              <img src="images/back to friends.jpeg" alt="Back to Friends">
+              <p class="song-title">Back to Friends</p>
+              <p class="artist-name">-Sombr</p>
+            </div>
+            <div class="song-card" onclick="playLocalTrack('wildflowers.mp3')">
+              <img src="images/WILDFLOWERS.jpeg" alt="Wildflowers">
+              <p class="song-title">WILDFLOWERS</p>
+              <p class="artist-name">-Billie Eilish</p>
+            </div>
+            <div class="song-card" onclick="playLocalTrack('Thats So True.mp3')">
+              <img src="images/That's So True.jpeg" alt="That's So True">
+              <p class="song-title">That's So True</p>
+              <p class="artist-name">-Gracie Abrams</p>
+            </div>
+            <div class="song-card" onclick="playHereWithMe() ">
+              <img src="images/here with me.jpeg" alt="Here With Me">
+              <p class="song-title">Here With Me</p>
+              <p class="artist-name">-d4vd</p>
+            </div>
+            <div class="song-card" onclick="playBirdsOfaFeather()">
+              <img src="images/BIRDS OF A FEATHER.jpeg" alt="BIRDS OF A FEATHER">
+              <p class="song-title">BIRDS OF A FEATHER</p>
+              <p class="artist-name">-Billie Eilish</p>
+            </div>
+            <div class="song-card" onclick="playLocalTrack('I Love You Im Sorry.mp3')">
+              <img src="images/Love You, I'm Sorry.jpeg" alt="Love You, I'm Sorry">
+              <p class="song-title">Love You, I'm Sorry</p>
+              <p class="artist-name">-Gracie Abrams</p>
+            </div>
           </div>
-          <div class="song-card" onclick="playLocalTrack('wildflowers.mp3')">
-            <img src="images/WILDFLOWERS.jpeg" alt="Wildflowers">
-            <p class="song-title">WILDFLOWERS</p>
-            <p class="artist-name">-Billie Eilish</p>
-          </div>
-          <div class="song-card" onclick="playLocalTrack('Thats So True.mp3')">
-            <img src="images/That's So True.jpeg" alt="That's So True">
-            <p class="song-title">That's So True</p>
-            <p class="artist-name">-Gracie Abrams</p>
-          </div>
-          <div class="song-card" onclick="playHereWithMe() ">
-            <img src="images/here with me.jpeg" alt="Here With Me">
-            <p class="song-title">Here With Me</p>
-            <p class="artist-name">-d4vd</p>
-          </div>
-          <div class="song-card" onclick="playBirdsOfaFeather()">
-            <img src="images/BIRDS OF A FEATHER.jpeg" alt="BIRDS OF A FEATHER">
-            <p class="song-title">BIRDS OF A FEATHER</p>
-            <p class="artist-name">-Billie Eilish</p>
-          </div>
-          <div class="song-card" onclick="playLocalTrack('I Love You Im Sorry.mp3')">
-            <img src="images/Love You, I'm Sorry.jpeg" alt="Love You, I'm Sorry">
-            <p class="song-title">Love You, I'm Sorry</p>
-            <p class="artist-name">-Gracie Abrams</p>
-          </div>
+          <button class="scroll-btn prev-btn">&lt;</button>
+          <button class="scroll-btn next-btn">&gt;</button>
         </div>
       </section>
     </main>
   </div>
 
      <!-- Player Controls -->
-  <div class="player">
-    <div id="nowPlayingInfo" class="now-playing-info">
-    <strong id="nowTitle">Song Title</strong> • <span id="nowArtist">Artist Name</span>
-  </div>
+   <div class="player">
+     <div class="now-playing-info">
+       <div class="now-playing-text">
+         <strong id="nowTitle">Song Title</strong>
+         <span id="nowArtist">Artist Name</span>
+       </div>
+     </div>
 
-    <div class="controls-row">
-      <button onclick="prevTrack()">⏮️</button>
-      <button onclick="togglePlayPause()" id="playPauseBtn">▶️</button>
-      <button onclick="nextTrack()">⏭️</button>
+     <div class="controls-row">
+       <button onclick="prevTrack()" class="control-btn">⏮️</button>
+       <button onclick="togglePlayPause()" id="playPauseBtn" class="control-btn play-btn">▶️</button>
+       <button onclick="nextTrack()" class="control-btn">⏭️</button>
 
-      <div class="volume-container">
-        <span class="volume-icon">🔊</span>
-        <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1" oninput="changeVolume()" />
-      </div>
-    </div>
-    <div class="progress-row">
-      <span id="currentTime">0:00</span>
-      <input type="range" id="progressBar" value="0" min="0" max="100" step="0.1" oninput="seekTrack()">
-      <span id="totalTime">0:00</span>
-    </div>
-    <audio id="audioPlayer" ontimeupdate="updateProgress()" onloadedmetadata="setDuration()"></audio>
-  </div>
+       <div class="volume-container">
+         <span class="volume-icon">🔊</span>
+         <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1" oninput="changeVolume()" />
+       </div>
+     </div>
+     <div class="progress-row">
+       <span id="currentTime">0:00</span>
+       <input type="range" id="progressBar" value="0" min="0" max="100" step="0.1" oninput="seekTrack()">
+       <span id="totalTime">0:00</span>
+     </div>
+     <audio id="audioPlayer" ontimeupdate="updateProgress()" onloadedmetadata="setDuration()"></audio>
+   </div>
 
 <script>
   // Load user info from localStorage
